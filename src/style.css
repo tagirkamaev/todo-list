@@ -1,4 +1,141 @@
-body {
-    background-color: rebeccapurple;
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body */
+  body {
+    font-family: 'Georgia', serif;
+    color: #333;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  header {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    font-weight: 400;
+  }
+  
+  /* Main Layout */
+  main {
+    display: flex;
+    flex: 1;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Sidebar */
+  aside {
+    flex: 1;
+    max-width: 300px;
+    border-right: 1px solid #ddd;
+  }
+  
+  #projects h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  #project-list {
+    list-style: none;
+    margin: 20px 0;
+  }
+  
+  #project-list .project {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  
+  #project-list .project:hover {
+    background: #ddd;
+  }
+  
+  #project-list .active {
+    background: #2c3e50;
+    color: white;
+  }
+  
+  #add-project {
+    background: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  #add-project:hover {
+    background: #1a242f;
+  }
+  
+  /* Todos Section */
+  #todos {
+    flex: 2;
+  }
+  
+  #todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  #current-project-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+  }
+  
+  #add-todo {
+    background: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #add-todo:hover {
+    background: #1a242f;
+  }
+  
+  #todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: #2c3e50;
+    color: white;
+    font-size: 0.9rem;
   }
   
