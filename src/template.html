@@ -6,27 +6,29 @@
     <title>To-Do List</title>
   </head>
   <body>
-    <header>
-      <h1>My To-Do List</h1>
-    </header>
-    <main>
-      <aside id="projects">
+    <div id="app">
+      <aside id="sidebar">
         <h2>Projects</h2>
         <ul id="project-list">
           <li class="project active">Default</li>
+          <li class="filter" data-filter="overdue">Overdue</li>
+          <li class="filter" data-filter="today">Today</li>
+          <li class="filter" data-filter="week">This Week</li>
         </ul>
         <button id="add-project">+ Add Project</button>
       </aside>
-      <section id="todos">
-        <div id="todo-header">
-          <h2 id="current-project-title">Default</h2>
-          <button id="add-todo">+ Add Task</button>
-        </div>
-        <div id="todo-list">
-          <!-- Tasks will be dynamically added here -->
-        </div>
-      </section>
-    </main>
+
+      <main id="task-container">
+        <header>
+          <h1 id="current-view-title">Default</h1>
+          <button id="add-task">+ Add Task</button>
+        </header>
+        <section id="tasks">
+          <!-- Dynamic task content will be rendered here -->
+          <p class="no-tasks">No tasks available. Add a task to get started!</p>
+        </section>
+      </main>
+    </div>
     <footer>
       <p>&copy; 2024 Stoic To-Do</p>
     </footer>
