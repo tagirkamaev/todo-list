@@ -18,7 +18,7 @@ class Task {
   }
 }
 
-const AllTasks = function () {
+const AllTasks = (function () {
   const tasks = [];
 
   const addTask = (task) => tasks.push(task);
@@ -32,7 +32,7 @@ const AllTasks = function () {
   };
 
   return { addTask, removeTask, getTasks, startWithTestTasks };
-};
+})();
 
 const DisplayTaskController = function () {
   const renderTasks = function () {
