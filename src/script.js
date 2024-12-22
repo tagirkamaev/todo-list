@@ -79,5 +79,8 @@ const DisplayTaskController = function () {
   return { renderTasks };
 };
 
-// const showTest = DisplayTaskController();
-// showTest.renderTasks();
+document.addEventListener("DOMContentLoaded", () => {
+  AllTasks.startWithTestTasks();
+  const taskController = DisplayTaskController();
+  taskController.renderTasks();
+});
