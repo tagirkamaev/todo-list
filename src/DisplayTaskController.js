@@ -1,12 +1,10 @@
-import AllTasks from "./AllTasks";
-
-const DisplayTaskController = function () {
-  const renderTasks = function () {
+const DisplayTaskController = (function () {
+  const renderTasks = function (tasks) {
     const taskContainer = document.getElementById("tasks");
     taskContainer.innerHTML = "";
 
     // display tasks
-    AllTasks.getTasks().forEach((task, index) => {
+    tasks.forEach((task, index) => {
       const taskCard = document.createElement("div");
       taskCard.classList.add("todo");
 
@@ -16,9 +14,6 @@ const DisplayTaskController = function () {
       const taskChecklist = document.createElement("input");
       taskChecklist.setAttribute("type", "checkbox");
       taskChecklist.checked = task.checklist;
-      taskChecklist.addEventListener("change", () => {
-        task.checklist = taskChecklist.checked;
-      });
       checkbox.appendChild(taskChecklist);
 
       // task content
@@ -40,20 +35,34 @@ const DisplayTaskController = function () {
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Delete";
       deleteButton.classList.add("delete-task");
-      deleteButton.addEventListener("click", () => {
-        AllTasks.removeTask(index);
-        renderTasks();
-      });
 
       taskCard.appendChild(checkbox);
       taskCard.appendChild(taskContent);
       taskCard.appendChild(deleteButton);
 
       taskContainer.appendChild(taskCard);
+
+      // callback for events
+      deleteButton.addEventListener("click", () => {
+        if (typeof onDelete === "function") onDelete(index);
+      });
+
+      taskChecklist.addEventListener("change", () => {
+        if (typeof onToggle === "function")
+          onToggle(index, taskChecklist.checked);
+      });
     });
   };
 
-  return { renderTasks };
-};
+  let onDelete = null;
+  let onToggle = null;
+
+  const setCallbacks = (callbacks) => {
+    onDelete = callbacks.onDelete;
+    onToggle = callbacks.onToggle;
+  };
+
+  return { renderTasks, setCallbacks };
+})();
 
 export default DisplayTaskController;
