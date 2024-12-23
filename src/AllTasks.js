@@ -5,6 +5,9 @@ const AllTasks = (function () {
 
   const addTask = (task) => tasks.push(task);
   const removeTask = (index) => tasks.splice(index, 1);
+  const updateTask = (index, updatedTask) => {
+    tasks[index] = updatedTask;
+  };
   const getTasks = () => [...tasks];
 
   const startWithTestTasks = () => {
@@ -13,7 +16,7 @@ const AllTasks = (function () {
     tasks.push(new Task("Do homework", "Math, physics", true));
   };
 
-  return { addTask, removeTask, getTasks, startWithTestTasks };
+  return { addTask, removeTask, updateTask, getTasks, startWithTestTasks };
 })();
 
 export default AllTasks;
