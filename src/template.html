@@ -29,6 +29,25 @@
         </section>
       </main>
     </div>
+    <dialog id="add-task-dialog">
+      <form method="dialog">
+        <label for="title">Task Title:</label>
+        <input type="text" id="task-title" name="title" required /><br /><br />
+
+        <label for="description">Description:</label>
+        <input
+          type="text"
+          id="task-desc"
+          name="description"
+          required
+        /><br /><br />
+
+        <div class="dialog-buttons">
+          <button class="confirm-button" id="confirm-add">Add task</button>
+          <button class="cancel-button" id="cancel-add">Cancel</button>
+        </div>
+      </form>
+    </dialog>
     <footer>
       <p>&copy; 2024 Stoic To-Do</p>
     </footer>
