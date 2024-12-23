@@ -2,6 +2,7 @@ import "./style.css";
 import AllTasks from "./AllTasks";
 import DisplayTaskController from "./DisplayTaskController";
 import Task from "./task";
+import AppController from "./AppController";
 
 // Add event listener for add task button
 const newTaskButton = document.getElementById("add-task");
@@ -25,7 +26,5 @@ confirmAddButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  AllTasks.startWithTestTasks();
-  const taskController = DisplayTaskController();
-  taskController.renderTasks();
+  AppController.initialize();
 });
