@@ -6,22 +6,23 @@
   }
   
   /* Body */
-  body {
+body {
     font-family: 'Georgia', serif;
     color: #333;
     background-color: #f5f5f5;
     display: flex;
-    height: 100vh;
-  }
+    flex-direction: column;
+    min-height: 100vh;
+}
   
   /* App Layout */
-  #app {
+#app {
     display: flex;
     flex: 1;
-  }
+}
   
   /* Sidebar */
-  #sidebar {
+#sidebar {
     width: 300px;
     background-color: #2c3e50;
     color: white;
@@ -29,27 +30,27 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
+}
   
-  #sidebar h2 {
+#sidebar h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
     border-bottom: 2px solid #4f6378;
     padding-bottom: 5px;
-  }
+}
   
-  #project-list {
+#project-list {
     list-style: none;
     flex-grow: 1;
-  }
+}
   
-  .project, .filter {
+.project, .filter {
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s;
-  }
+}
   
   .project.active, .filter:hover {
     background-color: #4f6378;
@@ -79,6 +80,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
+  /* Header */
   header {
     display: flex;
     justify-content: space-between;
@@ -126,14 +128,30 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: background 0.3s;
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
   }
   
   .todo:hover {
     background-color: #f1f1f1;
+    transform: translateY(-3px);
+  }
+
+  .todo h2 {
+    font-size: 1.5rem;
+    color:#2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .todo p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
   }
   
   /* Footer */
   footer {
+    margin-top: auto;
     text-align: center;
     padding: 10px;
     background-color: #2c3e50;
