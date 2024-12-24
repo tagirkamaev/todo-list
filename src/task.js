@@ -1,16 +1,21 @@
 class Task {
-  constructor(title, description, checklist) {
+  constructor(title, description, dueDate = null, checklist = false) {
     this.title = title;
     this.description = description;
-    this.checklist = checklist || false;
+    this.dueDate = dueDate;
+    this.checklist = checklist;
+  }
+
+  isOverdue() {
+    if (!this.dueDate) return false;
+    const currentDate = new Date();
+    return new Date(this.dueDate) < currentDate;
   }
 }
 
-// dueDate,
 // priority,
 // notes,
 
-// this.dueDate = dueDate;
 // this.priority = priority;
 // this.notes = notes;
 
