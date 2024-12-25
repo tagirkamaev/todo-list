@@ -71,6 +71,28 @@ const AppController = (function () {
 
       addTaskDialog.close();
     });
+
+    // filter buttons in menu
+    document
+      .querySelector('[data-filter="overdue"]')
+      .addEventListener("click", () => {
+        const overdueTasks = AllTasks.getOverdueTasks();
+        DisplayTaskController.renderTasks(overdueTasks);
+      });
+
+    document
+      .querySelector('[data-filter="today"]')
+      .addEventListener("click", () => {
+        const todayTasks = AllTasks.getTodayTasks();
+        DisplayTaskController.renderTasks(todayTasks);
+      });
+
+    document
+      .querySelector('[data-filter="week"]')
+      .addEventListener("click", () => {
+        const weekTasks = AllTasks.getThisWeekTasks();
+        DisplayTaskController.renderTasks(weekTasks);
+      });
   };
 
   return { initialize };
