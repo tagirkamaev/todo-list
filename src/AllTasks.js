@@ -9,6 +9,11 @@ const AllTasks = (function () {
     tasks[index] = updatedTask;
   };
   const getTasks = () => [...tasks];
+  const updateTaskDueDate = (index, newDueDate) => {
+    if (tasks[index]) {
+      tasks[index].dueDate = newDueDate;
+    }
+  };
 
   const startWithTestTasks = () => {
     tasks.push(new Task("Buy groceries", "Milk, bread, eggs", false));
@@ -16,7 +21,14 @@ const AllTasks = (function () {
     tasks.push(new Task("Do homework", "Math, physics", true));
   };
 
-  return { addTask, removeTask, updateTask, getTasks, startWithTestTasks };
+  return {
+    addTask,
+    removeTask,
+    updateTask,
+    getTasks,
+    updateTaskDueDate,
+    startWithTestTasks,
+  };
 })();
 
 export default AllTasks;
