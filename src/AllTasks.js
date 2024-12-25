@@ -56,6 +56,9 @@ const AllTasks = (function () {
     updateTask,
     getTasks,
     updateTaskDueDate,
+    getOverdueTasks,
+    getTodayTasks,
+    getThisWeekTasks,
     startWithTestTasks,
   };
 })();
