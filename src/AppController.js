@@ -17,8 +17,14 @@ const AppController = (function () {
     updateUI();
   };
 
-  const handleAddTask = (title, description) => {
-    const newTask = { title, description, checklist: false };
+  const handleAddTask = (title, description, dueDate) => {
+    const validDueDate = dueDate ? new Date(dueDate) : null;
+    const newTask = {
+      title,
+      description,
+      dueDate: validDueDate,
+      checklist: false,
+    };
     AllTasks.addTask(newTask);
     updateUI();
   };
@@ -52,9 +58,15 @@ const AppController = (function () {
     confirmAddButton.addEventListener("click", () => {
       const title = document.getElementById("task-title").value;
       const description = document.getElementById("task-desc").value;
+      const dueDate = document.getElementById("due-date").value;
+
+      if (dueDate && new Date(dueDate) < new Date()) {
+        alert("Due date cannot be in the past");
+        return;
+      }
 
       if (title && description) {
-        handleAddTask(title, description);
+        handleAddTask(title, description, dueDate);
       }
 
       addTaskDialog.close();
