@@ -93,6 +93,11 @@ const AppController = (function () {
         const weekTasks = AllTasks.getThisWeekTasks();
         DisplayTaskController.renderTasks(weekTasks);
       });
+
+    const defaultMenu = document.getElementById("default");
+    defaultMenu.addEventListener("click", () => {
+      updateUI();
+    });
   };
 
   return { initialize };
