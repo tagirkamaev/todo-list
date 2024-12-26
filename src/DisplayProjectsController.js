@@ -1,4 +1,4 @@
-const DisplayProjectsController = function () {
+const DisplayProjectsController = (function () {
   const renderProjects = function (projects) {
     const projectsContainer = document.getElementById("project-list");
     projectsContainer.innerHTML = "";
@@ -6,7 +6,7 @@ const DisplayProjectsController = function () {
     //display projects
     projects.forEach((project, index) => {
       const projectCard = document.createElement("li");
-      projectCard.innerHTML = project;
+      projectCard.textContent = project.name;
       projectCard.classList.add("project");
 
       projectsContainer.appendChild(projectCard);
@@ -14,6 +14,6 @@ const DisplayProjectsController = function () {
   };
 
   return { renderProjects };
-};
+})();
 
 export default DisplayProjectsController;
