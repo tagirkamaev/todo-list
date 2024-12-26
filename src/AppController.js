@@ -54,6 +54,10 @@ const AppController = (function () {
   const updateUI = () => {
     const tasks = AllTasks.getTasks();
     DisplayTaskController.renderTasks(tasks);
+
+    // clear task details when the UI updates
+    const detailsContainer = document.getElementById("details-content");
+    detailsContainer.innerHTML = `<p>Select a task to view details</p>`;
   };
 
   const updateUISidebar = () => {
