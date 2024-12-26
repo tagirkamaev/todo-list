@@ -1,4 +1,6 @@
+import AllProjects from "./AllProjects";
 import AllTasks from "./AllTasks";
+import DisplayProjectsController from "./DisplayProjectsController";
 import DisplayTaskController from "./DisplayTaskController";
 
 const AppController = (function () {
@@ -29,6 +31,14 @@ const AppController = (function () {
     updateUI();
   };
 
+  const handleAddProject = (name) => {
+    const newProject = {
+      name,
+    };
+    AllProjects.addProject(newProject);
+    updateUISidebar();
+  };
+
   const handleDeleteTask = (index) => {
     AllTasks.removeTask(index);
     updateUI();
@@ -44,6 +54,11 @@ const AppController = (function () {
   const updateUI = () => {
     const tasks = AllTasks.getTasks();
     DisplayTaskController.renderTasks(tasks);
+  };
+
+  const updateUISidebar = () => {
+    const projects = AllProjects.getProjects();
+    DisplayProjectsController.renderProjects(projects);
   };
 
   const setupEventListeners = () => {
@@ -70,6 +85,26 @@ const AppController = (function () {
       }
 
       addTaskDialog.close();
+    });
+
+    const newProjectButton = document.getElementById("add-project");
+    const addProjectDialog = document.getElementById("add-project-dialog");
+    const confirmAddProjectButton = document.getElementById(
+      "confirm-add-project"
+    );
+
+    newProjectButton.addEventListener("click", () => {
+      addProjectDialog.showModal();
+    });
+
+    confirmAddProjectButton.addEventListener("click", () => {
+      const name = document.getElementById("project-name").value;
+
+      if (name) {
+        handleAddProject(name);
+      }
+
+      addProjectDialog.close();
     });
 
     // filter buttons in menu
