@@ -2,6 +2,7 @@ import AllProjects from "./AllProjects";
 import AllTasks from "./AllTasks";
 import DisplayProjectsController from "./DisplayProjectsController";
 import DisplayTaskController from "./DisplayTaskController";
+import Task from "./task";
 
 const AppController = (function () {
   const initialize = () => {
@@ -19,14 +20,8 @@ const AppController = (function () {
     updateUI();
   };
 
-  const handleAddTask = (title, description, dueDate) => {
-    const validDueDate = dueDate ? new Date(dueDate) : null;
-    const newTask = {
-      title,
-      description,
-      dueDate: validDueDate,
-      checklist: false,
-    };
+  const handleAddTask = (title, description, dueDate, priority) => {
+    const newTask = new Task(title, description, dueDate, false, priority);
     AllTasks.addTask(newTask);
     updateUI();
   };
@@ -46,7 +41,16 @@ const AppController = (function () {
 
   const handleToggleTask = (index, isChecked) => {
     const tasks = AllTasks.getTasks();
-    const updatedTask = { ...tasks[index], checklist: isChecked };
+    const originalTask = tasks[index];
+
+    const updatedTask = new Task(
+      originalTask.title,
+      originalTask.description,
+      originalTask.dueDate,
+      isChecked,
+      originalTask.priority
+    );
+
     AllTasks.updateTask(index, updatedTask);
     updateUI();
   };
@@ -78,14 +82,15 @@ const AppController = (function () {
       const title = document.getElementById("task-title").value;
       const description = document.getElementById("task-desc").value;
       const dueDate = document.getElementById("due-date").value;
+      const priority = document.getElementById("task-priority").value;
 
-      if (dueDate && new Date(dueDate) < new Date()) {
+      if (dueDate && isNaN(new Date(dueDate).getTime())) {
         alert("Due date cannot be in the past");
         return;
       }
 
       if (title && description) {
-        handleAddTask(title, description, dueDate);
+        handleAddTask(title, description, dueDate, priority);
       }
 
       addTaskDialog.close();
