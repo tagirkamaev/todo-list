@@ -24,12 +24,12 @@ const DisplayTaskController = (function () {
       taskTitle.classList.add("task-title");
       taskTitle.textContent = task.title;
 
-      const taskDescription = document.createElement("span");
-      taskDescription.classList.add("task-desc");
-      taskDescription.textContent = task.description;
+      // const taskDescription = document.createElement("span");
+      // taskDescription.classList.add("task-desc");
+      // taskDescription.textContent = task.description;
 
       taskContent.appendChild(taskTitle);
-      taskContent.appendChild(taskDescription);
+      // taskContent.appendChild(taskDescription);
 
       // delete button
       const deleteButton = document.createElement("button");
@@ -39,6 +39,10 @@ const DisplayTaskController = (function () {
       taskCard.appendChild(checkbox);
       taskCard.appendChild(taskContent);
       taskCard.appendChild(deleteButton);
+
+      taskCard.addEventListener("click", () => {
+        showTaskDetails(task);
+      });
 
       taskContainer.appendChild(taskCard);
 
@@ -52,6 +56,16 @@ const DisplayTaskController = (function () {
           onToggle(index, taskChecklist.checked);
       });
     });
+  };
+
+  const showTaskDetails = (task) => {
+    const detailsContainer = document.getElementById("details-content");
+    detailsContainer.innerHTML = `
+      <h5>${task.title}</h5>
+      <p>${task.description}</p>
+      <p>Due: ${task.dueDate ? task.dueDate : "No due date"}</p>
+      <p>Status: ${task.checklist ? "Completed" : "Incomplete"}</p>
+      `;
   };
 
   let onDelete = null;
