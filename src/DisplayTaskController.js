@@ -8,6 +8,15 @@ const DisplayTaskController = (function () {
       const taskCard = document.createElement("div");
       taskCard.classList.add("todo");
 
+      // attaching class depending on priority
+      if (task.priority === "high") {
+        taskCard.classList.add("priority-high");
+      } else if (task.priority === "medium") {
+        taskCard.classList.add("priority-medium");
+      } else if (task.priority === "low") {
+        taskCard.classList.add("priority-low");
+      }
+
       // checkbox
       const checkbox = document.createElement("div");
       checkbox.classList.add("checkbox");
