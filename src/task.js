@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 
 class Task {
   constructor(
@@ -23,7 +23,12 @@ class Task {
 
   formatDueDate() {
     if (!this.dueDate) return "No due date";
-    return format(new Date(this.dueDate), "dd/MM/yyyy");
+    const parsedDate = new Date(this.dueDate);
+
+    if (!isValid(parsedDate)) {
+      console.error(`Invalid date: ${this.dueDate}`);
+    }
+    return format(parsedDate, "dd/MM/yyyy");
   }
 }
 
