@@ -247,3 +247,15 @@ body {
     background-color: #f44336;
     color: white;
 }
+
+.priority-high {
+  background-color: #ffcccc; 
+}
+
+.priority-medium {
+  background-color: #fff5cc; 
+}
+
+.priority-low {
+  background-color: #ccffcc; 
+}
