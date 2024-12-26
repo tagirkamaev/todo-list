@@ -24,12 +24,12 @@ const DisplayTaskController = (function () {
       taskTitle.classList.add("task-title");
       taskTitle.textContent = task.title;
 
-      // const taskDescription = document.createElement("span");
-      // taskDescription.classList.add("task-desc");
-      // taskDescription.textContent = task.description;
+      const taskDueDate = document.createElement("span");
+      taskDueDate.classList.add("task-due-date");
+      taskDueDate.textContent = task.formatDueDate();
 
       taskContent.appendChild(taskTitle);
-      // taskContent.appendChild(taskDescription);
+      taskContent.appendChild(taskDueDate);
 
       // delete button
       const deleteButton = document.createElement("button");
