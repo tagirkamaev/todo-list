@@ -16,17 +16,21 @@ const AppController = (function () {
     const tasksData = JSON.parse(localStorage.getItem("tasks")) || [];
     const projectsData = JSON.parse(localStorage.getItem("projects")) || [];
 
-    tasksData.forEach((task) => {
-      const restoredTask = new Task(
-        task.title,
-        task.description,
-        task.dueDate,
-        task.checklist,
-        task.priority
-      );
-      AllTasks.addTask(restoredTask);
-    });
-
+    if (tasksData.length === 0) {
+      AllTasks.startWithTestTasks();
+      saveToLocalStorage();
+    } else {
+      tasksData.forEach((task) => {
+        const restoredTask = new Task(
+          task.title,
+          task.description,
+          task.dueDate,
+          task.checklist,
+          task.priority
+        );
+        AllTasks.addTask(restoredTask);
+      });
+    }
     projectsData.forEach((project) => {
       AllProjects.addProject(project);
     });
