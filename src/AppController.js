@@ -5,9 +5,35 @@ import DisplayTaskController from "./DisplayTaskController";
 import Task from "./task";
 
 const AppController = (function () {
+  const saveToLocalStorage = () => {
+    const tasks = AllTasks.getTasks();
+    const projects = AllProjects.getProjects();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("projects", JSON.stringify(projects));
+  };
+
+  const loadFromLocalStorage = () => {
+    const tasksData = JSON.parse(localStorage.getItem("tasks")) || [];
+    const projectsData = JSON.parse(localStorage.getItem("projects")) || [];
+
+    tasksData.forEach((task) => {
+      const restoredTask = new Task(
+        task.title,
+        task.description,
+        task.dueDate,
+        task.checklist,
+        task.priority
+      );
+      AllTasks.addTask(restoredTask);
+    });
+
+    projectsData.forEach((project) => {
+      AllProjects.addProject(project);
+    });
+  };
+
   const initialize = () => {
-    // rendering example tasks
-    AllTasks.startWithTestTasks();
+    loadFromLocalStorage();
 
     // callbacks for display and logic interaction
     DisplayTaskController.setCallbacks({
@@ -23,6 +49,7 @@ const AppController = (function () {
   const handleAddTask = (title, description, dueDate, priority) => {
     const newTask = new Task(title, description, dueDate, false, priority);
     AllTasks.addTask(newTask);
+    saveToLocalStorage();
     updateUI();
   };
 
@@ -31,11 +58,13 @@ const AppController = (function () {
       name,
     };
     AllProjects.addProject(newProject);
+    saveToLocalStorage();
     updateUISidebar();
   };
 
   const handleDeleteTask = (index) => {
     AllTasks.removeTask(index);
+    saveToLocalStorage();
     updateUI();
   };
 
@@ -52,6 +81,7 @@ const AppController = (function () {
     );
 
     AllTasks.updateTask(index, updatedTask);
+    saveToLocalStorage();
     updateUI();
   };
 
