@@ -1,0 +1,35 @@
+/* ========== Project List ========== */
+#project-list {
+    list-style: none;
+    flex-grow: 1;
+}
+
+#filter-list {
+  list-style: none;
+  /* flex-grow: 1; */
+}
+
+.project, .filter {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+  .project.active, .filter:hover {
+    background-color: #4f6378;
+  }
+
+  #add-project {
+    background-color: #4f6378;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  #add-project:hover {
+    background-color: #3a4d61;
+  }

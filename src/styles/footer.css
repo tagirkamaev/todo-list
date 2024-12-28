@@ -1,0 +1,9 @@
+/* ========== Footer ========== */
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #1c1e21;
+    color: white;
+    font-size: 0.9rem;
+  }

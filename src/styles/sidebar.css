@@ -1,0 +1,10 @@
+/* ========== Sidebar ========== */
+#sidebar {
+    width: 300px;
+    background-color: #1c1e21;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
