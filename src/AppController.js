@@ -26,7 +26,8 @@ const AppController = (function () {
           task.description,
           task.dueDate,
           task.checklist,
-          task.priority
+          task.priority,
+          task.notes
         );
         AllTasks.addTask(restoredTask);
       });
@@ -43,6 +44,9 @@ const AppController = (function () {
     DisplayTaskController.setCallbacks({
       onDelete: handleDeleteTask,
       onToggle: handleToggleTask,
+      onTaskSelected: handleTaskSelected,
+      onUpdateTitle: handleUpdateTitle,
+      onUpdateNotes: handleUpdateNotes,
     });
 
     setupEventListeners();
@@ -51,7 +55,7 @@ const AppController = (function () {
   };
 
   const handleAddTask = (title, description, dueDate, priority) => {
-    const newTask = new Task(title, description, dueDate, false, priority);
+    const newTask = new Task(title, description, dueDate, false, priority, "");
     AllTasks.addTask(newTask);
     saveToLocalStorage();
     updateUI();
@@ -81,10 +85,28 @@ const AppController = (function () {
       originalTask.description,
       originalTask.dueDate,
       isChecked,
-      originalTask.priority
+      originalTask.priority,
+      originalTask.notes
     );
 
     AllTasks.updateTask(index, updatedTask);
+    saveToLocalStorage();
+    updateUI();
+  };
+
+  const handleTaskSelected = (index) => {
+    const task = AllTasks.getTasks()[index];
+    DisplayTaskController.renderTaskDetails(task);
+  };
+
+  const handleUpdateTitle = (task, newTitle) => {
+    task.title = newTitle;
+    saveToLocalStorage();
+    updateUI;
+  };
+
+  const handleUpdateNotes = (task, newNotes) => {
+    task.notes = newNotes;
     saveToLocalStorage();
     updateUI();
   };
@@ -93,9 +115,9 @@ const AppController = (function () {
     const tasks = AllTasks.getTasks();
     DisplayTaskController.renderTasks(tasks);
 
-    // clear task details when the UI updates
-    const detailsContainer = document.getElementById("details-content");
-    detailsContainer.innerHTML = `<p>Select a task to view details</p>`;
+    // // clear task details when the UI updates
+    // const detailsContainer = document.getElementById("task-details");
+    // detailsContainer.innerHTML = `<p>Select a task to view details</p>`;
   };
 
   const updateUISidebar = () => {
