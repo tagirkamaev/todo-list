@@ -1,4 +1,4 @@
-import "./style.css";
+import "./styles/style.css";
 import AppController from "./AppController";
 
 document.addEventListener("DOMContentLoaded", () => {
