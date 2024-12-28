@@ -6,13 +6,15 @@ class Task {
     description,
     dueDate = null,
     checklist = false,
-    priority = null
+    priority = null,
+    notes
   ) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.checklist = checklist;
     this.priority = priority;
+    this.notes = notes;
   }
 
   isOverdue() {
@@ -31,9 +33,5 @@ class Task {
     return format(parsedDate, "dd/MM/yyyy");
   }
 }
-
-// notes,
-
-// this.notes = notes;
 
 export default Task;
