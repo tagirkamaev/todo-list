@@ -20,12 +20,13 @@ const DisplayTaskController = (function () {
       }
 
       // checkbox
-      const checkbox = document.createElement("div");
-      checkbox.classList.add("checkbox");
-      const taskChecklist = document.createElement("input");
-      taskChecklist.setAttribute("type", "checkbox");
-      taskChecklist.checked = task.checklist;
-      checkbox.appendChild(taskChecklist);
+      const checkboxContainer = document.createElement("div");
+      checkboxContainer.classList.add("checkbox");
+      const taskCheckbox = document.createElement("input");
+      taskCheckbox.setAttribute("type", "checkbox");
+      taskCheckbox.setAttribute("data-task-index", index);
+      taskCheckbox.checked = task.checklist;
+      checkboxContainer.appendChild(taskCheckbox);
 
       // task content
       const taskContent = document.createElement("div");
@@ -37,7 +38,18 @@ const DisplayTaskController = (function () {
 
       const taskDueDate = document.createElement("span");
       taskDueDate.classList.add("task-due-date");
-      taskDueDate.textContent = task.formatDueDate();
+      taskDueDate.textContent = task.dueDate ? task.formatDueDate() : "";
+
+      taskDueDate.addEventListener("click", () => {
+        const newDate = prompt(
+          "Enter new due date (dd-mm-yyyy):",
+          task.dueDate
+        );
+        if (newDate) {
+          AllTasks.updateTaskDueDate(index, newDate);
+          task.dueDate.textContent = task.formatDueDate();
+        }
+      });
 
       taskContent.appendChild(taskTitle);
       taskContent.appendChild(taskDueDate);
@@ -65,9 +77,9 @@ const DisplayTaskController = (function () {
         if (typeof onDelete === "function") onDelete(index);
       });
 
-      taskChecklist.addEventListener("change", () => {
+      taskCheckbox.addEventListener("change", () => {
         if (typeof onToggle === "function")
-          onToggle(index, taskChecklist.checked);
+          onToggle(index, taskCheckbox.checked);
       });
     });
   };
@@ -100,10 +112,23 @@ const DisplayTaskController = (function () {
     checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
     checkboxIcon.style.backgroundColor = task.checklist ? "#2ecc71" : "#e74c3c";
     checkboxIcon.addEventListener("click", () => {
+      task.checklist = !task.checklist;
       if (typeof onToggle === "function") {
-        const taskIndex = AllTasks.getTasks().indexOf(task);
-        if (taskIndex !== -1) {
-          onToggle(taskIndex, !task.checklist);
+        const taskIndex = task.index;
+        // if (taskIndex !== -1) {
+        // onToggle(taskIndex, !task.checklist);
+        // }
+        onToggle(taskIndex, task.checklist);
+        checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
+        checkboxIcon.style.backgroundColor = task.checklist
+          ? "#2ecc71"
+          : "#e74c3c";
+
+        const taskCheckbox = document.querySelector(
+          `[data-task-index="${task.index}"]`
+        );
+        if (taskCheckbox) {
+          taskCheckbox.checked = task.checklist;
         }
       }
     });
