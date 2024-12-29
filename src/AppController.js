@@ -21,14 +21,14 @@ const AppController = (function () {
       saveToLocalStorage();
     } else {
       tasksData.forEach((task) => {
-        const restoredTask = new Task(
-          task.title,
-          task.description,
-          task.dueDate,
-          task.checklist,
-          task.priority,
-          task.notes
-        );
+        const restoredTask = new Task({
+          title: task.title,
+          description: task.description,
+          dueDate: task.dueDate,
+          checklist: task.checklist,
+          priority: task.priority,
+          notes: task.notes,
+        });
         AllTasks.addTask(restoredTask);
       });
     }
@@ -47,6 +47,7 @@ const AppController = (function () {
       onTaskSelected: handleTaskSelected,
       onUpdateTitle: handleUpdateTitle,
       onUpdateNotes: handleUpdateNotes,
+      onUpdateDate: handleUpdateDate,
     });
 
     setupEventListeners();
@@ -77,20 +78,9 @@ const AppController = (function () {
   };
 
   const handleToggleTask = (index, isChecked) => {
-    const tasks = AllTasks.getTasks();
-    const originalTask = tasks[index];
-
-    const updatedTask = new Task(
-      originalTask.title,
-      originalTask.description,
-      originalTask.dueDate,
-      isChecked,
-      originalTask.priority,
-      originalTask.notes
-    );
-
-    AllTasks.updateTask(index, updatedTask);
+    AllTasks.updateTaskChecklist(index, isChecked);
     saveToLocalStorage();
+    // DisplayTaskController.renderTaskDetails(updatedTask);
     updateUI();
   };
 
@@ -99,14 +89,23 @@ const AppController = (function () {
     DisplayTaskController.renderTaskDetails(task);
   };
 
-  const handleUpdateTitle = (task, newTitle) => {
-    task.title = newTitle;
+  const handleUpdateTitle = (index, newTitle) => {
+    const tasks = AllTasks.getTasks();
+    tasks[index].title = newTitle;
     saveToLocalStorage();
     updateUI;
   };
 
-  const handleUpdateNotes = (task, newNotes) => {
-    task.notes = newNotes;
+  const handleUpdateNotes = (index, newNotes) => {
+    const tasks = AllTasks.getTasks();
+    tasks[index].notes = newNotes;
+    saveToLocalStorage();
+    updateUI();
+  };
+
+  const handleUpdateDate = (index, newDate) => {
+    const tasks = AllTasks.getTasks();
+    tasks[index].dueDate = newDate;
     saveToLocalStorage();
     updateUI();
   };
@@ -114,10 +113,6 @@ const AppController = (function () {
   const updateUI = () => {
     const tasks = AllTasks.getTasks();
     DisplayTaskController.renderTasks(tasks);
-
-    // // clear task details when the UI updates
-    // const detailsContainer = document.getElementById("task-details");
-    // detailsContainer.innerHTML = `<p>Select a task to view details</p>`;
   };
 
   const updateUISidebar = () => {
