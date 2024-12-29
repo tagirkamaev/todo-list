@@ -59,7 +59,7 @@ const DisplayTaskController = (function () {
       deleteButton.textContent = "Delete";
       deleteButton.classList.add("delete-task");
 
-      taskCard.appendChild(checkbox);
+      taskCard.appendChild(checkboxContainer);
       taskCard.appendChild(taskContent);
       taskCard.appendChild(deleteButton);
 
@@ -67,7 +67,6 @@ const DisplayTaskController = (function () {
         if (typeof onTaskSelected === "function") {
           onTaskSelected(index);
         }
-        // showTaskDetails(task);
       });
 
       taskContainer.appendChild(taskCard);
