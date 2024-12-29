@@ -1,14 +1,21 @@
 import { format, isValid } from "date-fns";
 
 class Task {
-  constructor(
+  constructor({
     title,
     description,
     dueDate = null,
     checklist = false,
     priority = null,
-    notes
-  ) {
+    notes = "",
+  }) {
+    if (!title) {
+      throw new Error("Title is required field.");
+    }
+    if (dueDate && isNaN(new Date(dueDate).getTime())) {
+      throw new Error(`Invalid due date: ${dueDate}`);
+    }
+
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
