@@ -3,6 +3,7 @@ import isBefore from "date-fns/isBefore";
 import isToday from "date-fns/isToday";
 import isWithinInterval from "date-fns/isWithinInterval";
 import addDays from "date-fns/addDays";
+import { format, parseISO } from "date-fns";
 
 const AllTasks = (function () {
   const tasks = [];
@@ -58,7 +59,9 @@ const AllTasks = (function () {
 
   const startWithTestTasks = () => {
     const today = new Date();
-    const todayFormatted = format(today, "dd-MM-yyyy");
+    const displayDate = format(today, "dd-MM-yyyy");
+    const storedDate = format(today, "yyyy-MM-dd");
+    const parsedDate = parseISO(storedDate);
 
     tasks.push(
       new Task({
@@ -71,7 +74,7 @@ const AllTasks = (function () {
     tasks.push(
       new Task({
         title: "Wash dishes",
-        dueDate: todayFormatted,
+        dueDate: storedDate,
         checklist: false,
         priority: "medium",
         notes: "My mom asked me to do this",
@@ -81,6 +84,7 @@ const AllTasks = (function () {
       new Task({
         title: "Do homework",
         notes: "Math, physics",
+        dueDate: storedDate,
         checklist: true,
         priority: "high",
       })
