@@ -8,11 +8,15 @@ const AllTasks = (function () {
   const tasks = [];
 
   const addTask = (task) => tasks.push(task);
+
   const removeTask = (index) => tasks.splice(index, 1);
+
+  const getTasks = () => [...tasks];
+
   const updateTask = (index, updatedTask) => {
     tasks[index] = updatedTask;
   };
-  const getTasks = () => [...tasks];
+
   const updateTaskDueDate = (index, newDueDate) => {
     if (tasks[index]) {
       tasks[index].dueDate = newDueDate;
@@ -26,11 +30,13 @@ const AllTasks = (function () {
       (task) => task.dueDate && isBefore(new Date(task.dueDate), currentDate)
     );
   };
+
   const getTodayTasks = () => {
     return tasks.filter(
       (task) => task.dueDate && isToday(new Date(task.dueDate))
     );
   };
+
   const getThisWeekTasks = () => {
     const today = new Date();
     const endOfWeek = addDays(today, 7);
@@ -45,9 +51,34 @@ const AllTasks = (function () {
   };
 
   const startWithTestTasks = () => {
-    tasks.push(new Task("Buy groceries", "Milk, bread, eggs", false));
-    tasks.push(new Task("Wash dishes", "until 9 am", false));
-    tasks.push(new Task("Do homework", "Math, physics", true));
+    const today = new Date();
+    const todayFormatted = format(today, "dd-MM-yyyy");
+
+    tasks.push(
+      new Task({
+        title: "Buy groceries",
+        description: "Milk, bread, eggs",
+        checklist: false,
+        priority: "low",
+      })
+    );
+    tasks.push(
+      new Task({
+        title: "Wash dishes",
+        dueDate: todayFormatted,
+        checklist: false,
+        priority: "medium",
+        notes: "My mom asked me to do this",
+      })
+    );
+    tasks.push(
+      new Task({
+        title: "Do homework",
+        notes: "Math, physics",
+        checklist: true,
+        priority: "high",
+      })
+    );
   };
 
   return {
