@@ -85,71 +85,71 @@ const DisplayTaskController = (function () {
 
   const renderTaskDetails = (task) => {
     const detailsContainer = document.getElementById("task-details");
+
     detailsContainer.innerHTML = `
       <div id="details-icons">
         <span class="icon priority-icon" title="Priority"></span>
         <span class="icon checkbox-icon" title="Completion"></span>
         <span class="icon date-icon" title="Due Date"></span>
       </div>
-      <h3 id="details-title" contenteditable="true">${task.title}</h3>
+      <input id="details-title" value="${task.title}" />
       <textarea
         id="details-notes"
-        placeholder="Add your notes here...">${task.notes || ""}</textarea>`;
+        placeholder="Add your notes here...">${task.notes || ""}</textarea>
+      <input id="details-date" type="date" value="${task.dueDate || ""}" />`;
 
+    // priority
     const priorityIcon = detailsContainer.querySelector(".priority-icon");
-    const checkboxIcon = detailsContainer.querySelector(".checkbox-icon");
-    const dateIcon = detailsContainer.querySelector(".date-icon");
-
-    priorityIcon.title = `Priority: ${task.priority || "None"}`;
     priorityIcon.style.backgroundColor =
       task.priority === "high"
         ? "#e74c3c"
         : task.priority === "medium"
         ? "#f1c40f"
         : "#2ecc71";
+    priorityIcon.title = `Priority: ${task.priority || "None"}`;
 
-    checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
+    // checklist
+    const checkboxIcon = detailsContainer.querySelector(".checkbox-icon");
     checkboxIcon.style.backgroundColor = task.checklist ? "#2ecc71" : "#e74c3c";
+    checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
+
     checkboxIcon.addEventListener("click", () => {
       task.checklist = !task.checklist;
-      if (typeof onToggle === "function") {
-        const taskIndex = task.index;
-        // if (taskIndex !== -1) {
-        // onToggle(taskIndex, !task.checklist);
-        // }
-        onToggle(taskIndex, task.checklist);
-        checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
-        checkboxIcon.style.backgroundColor = task.checklist
-          ? "#2ecc71"
-          : "#e74c3c";
+      checkboxIcon.style.backgroundColor = task.checklist
+        ? "#2ecc71"
+        : "#e74c3c";
+      checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
 
-        const taskCheckbox = document.querySelector(
-          `[data-task-index="${task.index}"]`
-        );
-        if (taskCheckbox) {
-          taskCheckbox.checked = task.checklist;
-        }
+      if (typeof onToggle === "function") {
+        onToggle(task.index, task.checklist);
       }
     });
 
-    dateIcon.title = `Due: ${task.dueDate || "No due date"}`;
-
+    // update title
     const titleField = detailsContainer.querySelector("#details-title");
     titleField.addEventListener("input", () => {
+      task.title = titleField.value;
       if (typeof onUpdateTitle === "function") {
-        onUpdateTitle(task, titleField.textContent.trim());
+        onUpdateTitle(task.index, task.title);
       }
     });
 
+    // update notes
     const notesField = detailsContainer.querySelector("#details-notes");
-    if (notesField) {
-      notesField.addEventListener("input", () => {
-        if (typeof onUpdateNotes === "function") {
-          const notesValue = notesField.value ? notesField.value.trim() : "";
-          onUpdateNotes(task, notesValue);
-        }
-      });
-    }
+    notesField.addEventListener("input", () => {
+      task.notes = notesField.value;
+      if (typeof onUpdateNotes === "function") {
+        onUpdateNotes(task.index, task.notes);
+      }
+    });
+
+    const dateField = detailsContainer.querySelector("#details-date");
+    dateField.addEventListener("change", () => {
+      task.dueDate = dateField.value;
+      if (typeof onUpdateDate === "function") {
+        onUpdateDate(task.index, task.dueDate);
+      }
+    });
   };
 
   let onDelete = null;
@@ -157,6 +157,7 @@ const DisplayTaskController = (function () {
   let onTaskSelected = null;
   let onUpdateTitle = null;
   let onUpdateNotes = null;
+  let onUpdateDate = null;
 
   const setCallbacks = (callbacks) => {
     onDelete = callbacks.onDelete;
