@@ -23,6 +23,12 @@ const AllTasks = (function () {
     }
   };
 
+  const updateTaskChecklist = (index, newCheckbox) => {
+    if (tasks[index]) {
+      tasks[index].checklist = newCheckbox;
+    }
+  };
+
   // filtering methods
   const getOverdueTasks = () => {
     const currentDate = new Date();
@@ -87,6 +93,7 @@ const AllTasks = (function () {
     updateTask,
     getTasks,
     updateTaskDueDate,
+    updateTaskChecklist,
     getOverdueTasks,
     getTodayTasks,
     getThisWeekTasks,
