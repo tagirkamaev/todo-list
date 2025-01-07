@@ -1,95 +1,95 @@
-import Task from "./task";
-import isBefore from "date-fns/isBefore";
-import isToday from "date-fns/isToday";
-import isWithinInterval from "date-fns/isWithinInterval";
-import addDays from "date-fns/addDays";
-import { format, parseISO } from "date-fns";
+import Task from './task'
+import isBefore from 'date-fns/isBefore'
+import isToday from 'date-fns/isToday'
+import isWithinInterval from 'date-fns/isWithinInterval'
+import addDays from 'date-fns/addDays'
+import { format, parseISO } from 'date-fns'
 
 const AllTasks = (function () {
-  const tasks = [];
+  const tasks = []
 
-  const addTask = (task) => tasks.push(task);
+  const addTask = (task) => tasks.push(task)
 
-  const removeTask = (index) => tasks.splice(index, 1);
+  const removeTask = (index) => tasks.splice(index, 1)
 
-  const getTasks = () => [...tasks];
+  const getTasks = () => [...tasks]
 
   const updateTask = (index, updatedTask) => {
-    tasks[index] = updatedTask;
-  };
+    tasks[index] = updatedTask
+  }
 
   const updateTaskDueDate = (index, newDueDate) => {
     if (tasks[index]) {
-      tasks[index].dueDate = newDueDate;
+      tasks[index].dueDate = newDueDate
     }
-  };
+  }
 
   const updateTaskChecklist = (index, newCheckbox) => {
     if (tasks[index]) {
-      tasks[index].checklist = newCheckbox;
+      tasks[index].checklist = newCheckbox
     }
-  };
+  }
 
   // filtering methods
   const getOverdueTasks = () => {
-    const currentDate = new Date();
+    const currentDate = new Date()
     return tasks.filter(
-      (task) => task.dueDate && isBefore(new Date(task.dueDate), currentDate)
-    );
-  };
+      (task) => task.dueDate && isBefore(new Date(task.dueDate), currentDate),
+    )
+  }
 
   const getTodayTasks = () => {
     return tasks.filter(
-      (task) => task.dueDate && isToday(new Date(task.dueDate))
-    );
-  };
+      (task) => task.dueDate && isToday(new Date(task.dueDate)),
+    )
+  }
 
   const getThisWeekTasks = () => {
-    const today = new Date();
-    const endOfWeek = addDays(today, 7);
+    const today = new Date()
+    const endOfWeek = addDays(today, 7)
 
     return tasks.filter((task) => {
-      if (!task.dueDate) return false;
+      if (!task.dueDate) return false
       return isWithinInterval(new Date(task.dueDate), {
         start: today,
         end: endOfWeek,
-      });
-    });
-  };
+      })
+    })
+  }
 
   const startWithTestTasks = () => {
-    const today = new Date();
-    const displayDate = format(today, "dd-MM-yyyy");
-    const storedDate = format(today, "yyyy-MM-dd");
-    const parsedDate = parseISO(storedDate);
+    const today = new Date()
+    const displayDate = format(today, 'dd-MM-yyyy')
+    const storedDate = format(today, 'yyyy-MM-dd')
+    const parsedDate = parseISO(storedDate)
 
     tasks.push(
       new Task({
-        title: "Buy groceries",
-        description: "Milk, bread, eggs",
+        title: 'Buy groceries',
+        description: 'Milk, bread, eggs',
         checklist: false,
-        priority: "low",
-      })
-    );
+        priority: 'low',
+      }),
+    )
     tasks.push(
       new Task({
-        title: "Wash dishes",
+        title: 'Wash dishes',
         dueDate: storedDate,
         checklist: false,
-        priority: "medium",
-        notes: "My mom asked me to do this",
-      })
-    );
+        priority: 'medium',
+        notes: 'My mom asked me to do this',
+      }),
+    )
     tasks.push(
       new Task({
-        title: "Do homework",
-        notes: "Math, physics",
+        title: 'Do homework',
+        notes: 'Math, physics',
         dueDate: storedDate,
         checklist: true,
-        priority: "high",
-      })
-    );
-  };
+        priority: 'high',
+      }),
+    )
+  }
 
   return {
     addTask,
@@ -102,7 +102,7 @@ const AllTasks = (function () {
     getTodayTasks,
     getThisWeekTasks,
     startWithTestTasks,
-  };
-})();
+  }
+})()
 
-export default AllTasks;
+export default AllTasks
