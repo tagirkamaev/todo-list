@@ -153,6 +153,11 @@ const DisplayTaskController = (function () {
     // update priority
     priorityFlag.addEventListener('click', () => {
       // clear existing dropdown
+      const existingDropdown = document.querySelector('.priority-dropdown')
+      if (existingDropdown) {
+        existingDropdown.remove()
+        return
+      }
 
       // creating dropdown
       const priorityDropdown = document.createElement('select')
