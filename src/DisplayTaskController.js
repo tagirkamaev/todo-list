@@ -188,11 +188,6 @@ const DisplayTaskController = (function () {
       priorityFlag.appendChild(priorityDropdown)
     })
 
-    // Stop the event bubbling
-    priorityFlag.addEventListener('click', (event) => {
-      event.stopPropagation()
-    })
-
     // const dateField = detailsContainer.querySelector("#details-date");
     // dateField.addEventListener("change", () => {
     //   task.dueDate = dateField.value;
