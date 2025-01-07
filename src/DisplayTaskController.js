@@ -1,4 +1,6 @@
 import AllTasks from './AllTasks'
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
 
 const DisplayTaskController = (function () {
   const renderTasks = function (tasks) {
@@ -188,6 +190,40 @@ const DisplayTaskController = (function () {
       priorityFlag.appendChild(priorityDropdown)
     })
 
+    // update dueDate
+    dueDateIcon.addEventListener('click', () => {
+      // deleting existing picker
+      const existingPicker = document.querySelector('.flatpickr-calendar')
+      if (existingPicker) {
+        existingPicker.remove()
+        return
+      }
+
+      // creating input for calendar
+      const dateInput = document.createElement('input')
+      dateInput.type = 'text'
+      dateInput.classList.add('datepicker')
+      detailsContainer.appendChild(dateInput)
+
+      // initializing flatpickr
+      flatpickr(dateInput, {
+        enableTime: false,
+        dateFormat: 'd-m-Y',
+        defaultDate: task.dueDate || new Date(),
+        onClose: (selectedDates) => {
+          if (selectedDates.length > 0) {
+            const newDate = selectedDates[0]
+            if (typeof onUpdateDate === 'function') {
+              onUpdateDate(index, newDate.toISOString().split('T')[0])
+            }
+            dateInput.remove()
+          }
+        },
+      })
+
+      dateInput.focus()
+    })
+
     // const dateField = detailsContainer.querySelector("#details-date");
     // dateField.addEventListener("change", () => {
     //   task.dueDate = dateField.value;
@@ -203,7 +239,7 @@ const DisplayTaskController = (function () {
   let onUpdateTitle = null
   let onUpdateNotes = null
   let onUpdatePriority = null
-  // let onUpdateDate = null
+  let onUpdateDate = null
 
   const setCallbacks = (callbacks) => {
     onDelete = callbacks.onDelete
@@ -212,6 +248,7 @@ const DisplayTaskController = (function () {
     onUpdateTitle = callbacks.onUpdateTitle
     onUpdateNotes = callbacks.onUpdateNotes
     onUpdatePriority = callbacks.onUpdatePriority
+    onUpdateDate = callbacks.onUpdateDate
   }
 
   return { renderTasks, renderTaskDetails, setCallbacks }
