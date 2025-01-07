@@ -112,8 +112,7 @@ const AppController = (function () {
   }
 
   const handleUpdateDate = (index, newDate) => {
-    const tasks = AllTasks.getTasks()
-    tasks[index].dueDate = newDate
+    AllTasks.updateTaskDueDate(index, newDate)
     saveToLocalStorage()
     updateUI()
   }
