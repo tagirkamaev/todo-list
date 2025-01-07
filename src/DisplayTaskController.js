@@ -80,11 +80,12 @@ const DisplayTaskController = (function () {
     })
   }
 
-  const renderTaskDetails = (task) => {
+  const renderTaskDetails = (task, index) => {
     const detailsContainer = document.getElementById('task-details')
 
     detailsContainer.innerHTML = ''
 
+    // priority
     const priorityFlag = document.createElement('i')
     priorityFlag.classList.add('priority-flag')
     priorityFlag.classList.add('fa-solid', 'fa-flag')
@@ -95,6 +96,7 @@ const DisplayTaskController = (function () {
           ? '#f1c40f'
           : '#2ecc71'
 
+    // checklist
     const checkboxInDetails = document.createElement('input')
     checkboxInDetails.type = 'checkbox'
     checkboxInDetails.classList.add('checkbox-details')
@@ -102,6 +104,7 @@ const DisplayTaskController = (function () {
       AllTasks.updateTaskChecklist
     })
 
+    // due date
     const dueDateInDetailsContainer = document.createElement('div')
     const dueDateIcon = document.createElement('i')
     dueDateIcon.classList.add('date-details')
@@ -113,17 +116,25 @@ const DisplayTaskController = (function () {
       dueDateInDetailsContainer.appendChild(dueDateInDetails)
     }
 
+    // task title
+    const detailsTaskTitle = document.createElement('h4')
+    detailsTaskTitle.classList.add('details-title')
+    detailsTaskTitle.setAttribute('contenteditable', 'true')
+    detailsTaskTitle.textContent = task.title
+
     detailsContainer.appendChild(dueDateInDetailsContainer)
     detailsContainer.appendChild(checkboxInDetails)
     detailsContainer.appendChild(priorityFlag)
+    detailsContainer.appendChild(detailsTaskTitle)
+
     // update title
-    // const titleField = detailsContainer.querySelector("#details-title");
-    // titleField.addEventListener("input", () => {
-    //   task.title = titleField.value;
-    //   if (typeof onUpdateTitle === "function") {
-    //     onUpdateTitle(task.index, task.title);
-    //   }
-    // });
+    detailsTaskTitle.addEventListener('input', () => {
+      task.title = detailsTaskTitle.textContent.trim()
+      if (typeof onUpdateTitle === 'function') {
+        onUpdateTitle(index, task.title)
+      }
+    })
+    //
 
     // // update notes
     // const notesField = detailsContainer.querySelector("#details-notes");
@@ -147,15 +158,15 @@ const DisplayTaskController = (function () {
   let onToggle = null
   let onTaskSelected = null
   let onUpdateTitle = null
-  let onUpdateNotes = null
-  let onUpdateDate = null
+  // let onUpdateNotes = null
+  // let onUpdateDate = null
 
   const setCallbacks = (callbacks) => {
     onDelete = callbacks.onDelete
     onToggle = callbacks.onToggle
     onTaskSelected = callbacks.onTaskSelected
-    onUpdateNotes = callbacks.onUpdateNotes
     onUpdateTitle = callbacks.onUpdateTitle
+    // onUpdateNotes = callbacks.onUpdateNotes
   }
 
   return { renderTasks, renderTaskDetails, setCallbacks }
