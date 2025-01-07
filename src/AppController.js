@@ -48,6 +48,7 @@ const AppController = (function () {
       onUpdateTitle: handleUpdateTitle,
       onUpdateNotes: handleUpdateNotes,
       onUpdateDate: handleUpdateDate,
+      onUpdatePriority: handleUpdatePriority,
     })
 
     setupEventListeners()
@@ -99,6 +100,13 @@ const AppController = (function () {
   const handleUpdateNotes = (index, newNotes) => {
     const tasks = AllTasks.getTasks()
     tasks[index].notes = newNotes
+    saveToLocalStorage()
+    updateUI()
+  }
+
+  const handleUpdatePriority = (index, newPriority) => {
+    const tasks = AllTasks.getTasks()
+    tasks[index].priority = newPriority
     saveToLocalStorage()
     updateUI()
   }
