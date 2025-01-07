@@ -86,70 +86,64 @@ const DisplayTaskController = (function () {
   const renderTaskDetails = (task) => {
     const detailsContainer = document.getElementById("task-details");
 
-    detailsContainer.innerHTML = `
-      <div id="details-icons">
-        <span class="icon priority-icon" title="Priority"></span>
-        <span class="icon checkbox-icon" title="Completion"></span>
-        <span class="icon date-icon" title="Due Date"></span>
-      </div>
-      <input id="details-title" value="${task.title}" />
-      <textarea
-        id="details-notes"
-        placeholder="Add your notes here...">${task.notes || ""}</textarea>
-      <input id="details-date" type="date" value="${task.dueDate || ""}" />`;
+    detailsContainer.innerHTML = "";
 
-    // priority
-    const priorityIcon = detailsContainer.querySelector(".priority-icon");
-    priorityIcon.style.backgroundColor =
+    const priorityFlag = document.createElement("i");
+    priorityFlag.classList.add("priority-flag");
+    priorityFlag.classList.add("fa-solid", "fa-flag");
+    priorityFlag.style.color =
       task.priority === "high"
         ? "#e74c3c"
         : task.priority === "medium"
         ? "#f1c40f"
         : "#2ecc71";
-    priorityIcon.title = `Priority: ${task.priority || "None"}`;
 
-    // checklist
-    const checkboxIcon = detailsContainer.querySelector(".checkbox-icon");
-    checkboxIcon.style.backgroundColor = task.checklist ? "#2ecc71" : "#e74c3c";
-    checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
-
-    checkboxIcon.addEventListener("click", () => {
-      task.checklist = !task.checklist;
-      checkboxIcon.style.backgroundColor = task.checklist
-        ? "#2ecc71"
-        : "#e74c3c";
-      checkboxIcon.title = task.checklist ? "Completed" : "Incomplete";
-
-      if (typeof onToggle === "function") {
-        onToggle(task.index, task.checklist);
-      }
+    const checkboxInDetails = document.createElement("input");
+    checkboxInDetails.type = "checkbox";
+    checkboxInDetails.classList.add("checkbox-details");
+    checkboxInDetails.addEventListener("change", () => {
+      AllTasks.updateTaskChecklist;
     });
 
+    const dueDateInDetailsContainer = document.createElement("div");
+    const dueDateIcon = document.createElement("i");
+    dueDateIcon.classList.add("date-details");
+    dueDateIcon.classList.add("fa-solid", "fa-calendar");
+    dueDateInDetailsContainer.appendChild(dueDateIcon);
+    if (task.dueDate) {
+      const dueDateInDetails = document.createElement("span");
+      dueDateInDetails.textContent = task.dueDate;
+      dueDateInDetailsContainer.appendChild(dueDateInDetails);
+    }
+
+    detailsContainer.appendChild(dueDateInDetailsContainer);
+    detailsContainer.appendChild(checkboxInDetails);
+    detailsContainer.appendChild(priorityFlag);
     // update title
-    const titleField = detailsContainer.querySelector("#details-title");
-    titleField.addEventListener("input", () => {
-      task.title = titleField.value;
-      if (typeof onUpdateTitle === "function") {
-        onUpdateTitle(task.index, task.title);
-      }
-    });
+    // const titleField = detailsContainer.querySelector("#details-title");
+    // titleField.addEventListener("input", () => {
+    //   task.title = titleField.value;
+    //   if (typeof onUpdateTitle === "function") {
+    //     onUpdateTitle(task.index, task.title);
+    //   }
+    // });
 
-    // update notes
-    const notesField = detailsContainer.querySelector("#details-notes");
-    notesField.addEventListener("input", () => {
-      task.notes = notesField.value;
-      if (typeof onUpdateNotes === "function") {
-        onUpdateNotes(task.index, task.notes);
-      }
-    });
+    // // update notes
+    // const notesField = detailsContainer.querySelector("#details-notes");
+    // notesField.addEventListener("input", () => {
+    //   task.notes = notesField.value;
+    //   if (typeof onUpdateNotes === "function") {
+    //     onUpdateNotes(task.index, task.notes);
+    //   }
+    // });
 
-    const dateField = detailsContainer.querySelector("#details-date");
-    dateField.addEventListener("change", () => {
-      task.dueDate = dateField.value;
-      if (typeof onUpdateDate === "function") {
-        onUpdateDate(task.index, task.dueDate);
-      }
-    });
+    // const dateField = detailsContainer.querySelector("#details-date");
+    // dateField.addEventListener("change", () => {
+    //   task.dueDate = dateField.value;
+    //   if (typeof onUpdateDate === "function") {
+    //     onUpdateDate(task.index, task.dueDate);
+    //   }
+    // });
   };
 
   let onDelete = null;
