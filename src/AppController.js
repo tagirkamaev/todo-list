@@ -82,6 +82,7 @@ const AppController = (function () {
     AllTasks.updateTaskChecklist(index, isChecked)
     saveToLocalStorage()
     updateUI()
+    handleTaskSelected(index)
   }
 
   const handleTaskSelected = (index) => {
@@ -93,7 +94,7 @@ const AppController = (function () {
     const tasks = AllTasks.getTasks()
     tasks[index].title = newTitle
     saveToLocalStorage()
-    updateUI
+    updateUI()
   }
 
   const handleUpdateNotes = (index, newNotes) => {
@@ -108,12 +109,14 @@ const AppController = (function () {
     tasks[index].priority = newPriority
     saveToLocalStorage()
     updateUI()
+    handleTaskSelected(index)
   }
 
   const handleUpdateDate = (index, newDate) => {
     AllTasks.updateTaskDueDate(index, newDate)
     saveToLocalStorage()
     updateUI()
+    handleTaskSelected(index)
   }
 
   const updateUI = () => {
