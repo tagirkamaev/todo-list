@@ -150,6 +150,25 @@ const DisplayTaskController = (function () {
       }
     })
 
+    // update priority
+    priorityFlag.addEventListener('click', () => {
+      // clear existing dropdown
+
+      // creating dropdown
+      const priorityDropdown = document.createElement('select')
+      priorityDropdown.classList
+        .add('priority-dropdown')
+        [('Low', 'Medium', 'High')].forEach((priority) => {
+          const option = document.createElement('option')
+          option.value = priority.toLowerCase()
+          option.textContent = priority
+          if (task.priority === option.value) {
+            option.selected = true
+          }
+          priorityDropdown.appendChild(option)
+        })
+    })
+
     // const dateField = detailsContainer.querySelector("#details-date");
     // dateField.addEventListener("change", () => {
     //   task.dueDate = dateField.value;
