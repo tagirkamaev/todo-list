@@ -122,10 +122,17 @@ const DisplayTaskController = (function () {
     detailsTaskTitle.setAttribute('contenteditable', 'true')
     detailsTaskTitle.textContent = task.title
 
+    // task notes
+    const detailsTaskNotes = document.createElement('p')
+    detailsTaskNotes.classList.add('details-notes')
+    detailsTaskNotes.setAttribute('contenteditable', 'true')
+    detailsTaskNotes.textContent = task.notes
+
     detailsContainer.appendChild(dueDateInDetailsContainer)
     detailsContainer.appendChild(checkboxInDetails)
     detailsContainer.appendChild(priorityFlag)
     detailsContainer.appendChild(detailsTaskTitle)
+    detailsContainer.appendChild(detailsTaskNotes)
 
     // update title
     detailsTaskTitle.addEventListener('input', () => {
@@ -134,9 +141,8 @@ const DisplayTaskController = (function () {
         onUpdateTitle(index, task.title)
       }
     })
-    //
 
-    // // update notes
+    // update notes
     // const notesField = detailsContainer.querySelector("#details-notes");
     // notesField.addEventListener("input", () => {
     //   task.notes = notesField.value;
