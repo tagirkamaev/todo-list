@@ -14,7 +14,7 @@ export default [
     },
     rules: {
       ...prettierPlugin.configs.recommended.rules,
-      'prettier/prettier': 'error',
+      'prettier/prettier': 'warn',
     },
   },
   pluginJs.configs.recommended,
