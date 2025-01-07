@@ -81,7 +81,6 @@ const AppController = (function () {
   const handleToggleTask = (index, isChecked) => {
     AllTasks.updateTaskChecklist(index, isChecked)
     saveToLocalStorage()
-    // DisplayTaskController.renderTaskDetails(updatedTask);
     updateUI()
   }
 

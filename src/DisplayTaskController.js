@@ -102,9 +102,7 @@ const DisplayTaskController = (function () {
     const checkboxInDetails = document.createElement('input')
     checkboxInDetails.type = 'checkbox'
     checkboxInDetails.classList.add('checkbox-details')
-    checkboxInDetails.addEventListener('change', () => {
-      AllTasks.updateTaskChecklist
-    })
+    checkboxInDetails.checked = task.checklist
 
     // due date
     const dueDateInDetailsContainer = document.createElement('div')
@@ -224,13 +222,13 @@ const DisplayTaskController = (function () {
       dateInput.focus()
     })
 
-    // const dateField = detailsContainer.querySelector("#details-date");
-    // dateField.addEventListener("change", () => {
-    //   task.dueDate = dateField.value;
-    //   if (typeof onUpdateDate === "function") {
-    //     onUpdateDate(task.index, task.dueDate);
-    //   }
-    // });
+    // update checkbox
+    checkboxInDetails.addEventListener('change', () => {
+      task.checklist = checkboxInDetails.checked
+      if (typeof onToggle === 'function') {
+        onToggle(index, task.checklist)
+      }
+    })
   }
 
   let onDelete = null
