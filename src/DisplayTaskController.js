@@ -143,13 +143,12 @@ const DisplayTaskController = (function () {
     })
 
     // update notes
-    // const notesField = detailsContainer.querySelector("#details-notes");
-    // notesField.addEventListener("input", () => {
-    //   task.notes = notesField.value;
-    //   if (typeof onUpdateNotes === "function") {
-    //     onUpdateNotes(task.index, task.notes);
-    //   }
-    // });
+    detailsTaskNotes.addEventListener('input', () => {
+      task.notes = detailsTaskNotes.textContent
+      if (typeof onUpdateNotes === 'function') {
+        onUpdateNotes(index, task.notes)
+      }
+    })
 
     // const dateField = detailsContainer.querySelector("#details-date");
     // dateField.addEventListener("change", () => {
@@ -164,7 +163,7 @@ const DisplayTaskController = (function () {
   let onToggle = null
   let onTaskSelected = null
   let onUpdateTitle = null
-  // let onUpdateNotes = null
+  let onUpdateNotes = null
   // let onUpdateDate = null
 
   const setCallbacks = (callbacks) => {
@@ -172,7 +171,7 @@ const DisplayTaskController = (function () {
     onToggle = callbacks.onToggle
     onTaskSelected = callbacks.onTaskSelected
     onUpdateTitle = callbacks.onUpdateTitle
-    // onUpdateNotes = callbacks.onUpdateNotes
+    onUpdateNotes = callbacks.onUpdateNotes
   }
 
   return { renderTasks, renderTaskDetails, setCallbacks }
