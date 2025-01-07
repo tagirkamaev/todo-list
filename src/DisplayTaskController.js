@@ -167,6 +167,16 @@ const DisplayTaskController = (function () {
           }
           priorityDropdown.appendChild(option)
         })
+
+      priorityDropdown.addEventListener('change', () => {
+        const newPriority = priorityDropdown.value
+        if (typeof onUpdatePriority === 'function') {
+          onUpdatePriority(index, newPriority)
+        }
+        priorityDropdown.remove() // removing dropdown after select
+      })
+
+      priorityFlag.appendChild(priorityDropdown)
     })
 
     // const dateField = detailsContainer.querySelector("#details-date");
@@ -183,6 +193,7 @@ const DisplayTaskController = (function () {
   let onTaskSelected = null
   let onUpdateTitle = null
   let onUpdateNotes = null
+  let onUpdatePriority = null
   // let onUpdateDate = null
 
   const setCallbacks = (callbacks) => {
@@ -191,6 +202,7 @@ const DisplayTaskController = (function () {
     onTaskSelected = callbacks.onTaskSelected
     onUpdateTitle = callbacks.onUpdateTitle
     onUpdateNotes = callbacks.onUpdateNotes
+    onUpdatePriority = callbacks.onUpdatePriority
   }
 
   return { renderTasks, renderTaskDetails, setCallbacks }
