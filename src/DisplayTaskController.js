@@ -161,17 +161,21 @@ const DisplayTaskController = (function () {
 
       // creating dropdown
       const priorityDropdown = document.createElement('select')
-      priorityDropdown.classList
-        .add('priority-dropdown')
-        [('Low', 'Medium', 'High')].forEach((priority) => {
-          const option = document.createElement('option')
-          option.value = priority.toLowerCase()
-          option.textContent = priority
-          if (task.priority === option.value) {
-            option.selected = true
-          }
-          priorityDropdown.appendChild(option)
-        })
+      priorityDropdown.classList.add('priority-dropdown')
+      const priorityChoices = ['low', 'medium', 'high']
+      priorityChoices.forEach((priority) => {
+        const option = document.createElement('option')
+        option.value = priority.toLowerCase()
+        option.textContent = priority
+        if (task.priority === option.value) {
+          option.selected = true
+        }
+        priorityDropdown.appendChild(option)
+      })
+
+      priorityDropdown.addEventListener('click', (e) => {
+        e.stopPropagation()
+      })
 
       priorityDropdown.addEventListener('change', () => {
         const newPriority = priorityDropdown.value
@@ -182,6 +186,11 @@ const DisplayTaskController = (function () {
       })
 
       priorityFlag.appendChild(priorityDropdown)
+    })
+
+    // Stop the event bubbling
+    priorityFlag.addEventListener('click', (event) => {
+      event.stopPropagation()
     })
 
     // const dateField = detailsContainer.querySelector("#details-date");
