@@ -4,6 +4,7 @@ import isToday from 'date-fns/isToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import addDays from 'date-fns/addDays'
 import { format, isValid } from 'date-fns'
+import flatpickr from 'flatpickr'
 
 const AllTasks = (function () {
   const tasks = []
@@ -103,6 +104,22 @@ const AllTasks = (function () {
     )
   }
 
+  const initDatePicker = (element, initialDate, onDateSelected) => {
+    flatpickr(element, {
+      enableTime: false,
+      dateFormat: 'd.m.Y',
+      defaultDate: initialDate ? new Date(initialDate) : new Date(),
+      onClose: (selectedDates) => {
+        if (selectedDates.length > 0) {
+          const newDate = selectedDates[0]
+          if (typeof onDateSelected === 'function') {
+            onDateSelected(newDate.toISOString().split('T')[0])
+          }
+        }
+      },
+    })
+  }
+
   return {
     addTask,
     removeTask,
@@ -115,6 +132,7 @@ const AllTasks = (function () {
     getTodayTasks,
     getThisWeekTasks,
     startWithTestTasks,
+    initDatePicker,
   }
 })()
 
