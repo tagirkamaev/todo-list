@@ -113,7 +113,7 @@ const AllTasks = (function () {
         if (selectedDates.length > 0) {
           const newDate = selectedDates[0]
           if (typeof onDateSelected === 'function') {
-            onDateSelected(newDate.toISOString().split('T')[0])
+            onDateSelected(newDate)
           }
         }
       },
