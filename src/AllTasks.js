@@ -3,7 +3,7 @@ import isBefore from 'date-fns/isBefore'
 import isToday from 'date-fns/isToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import addDays from 'date-fns/addDays'
-import { format, parseISO } from 'date-fns'
+import { format, isValid } from 'date-fns'
 
 const AllTasks = (function () {
   const tasks = []
@@ -13,6 +13,18 @@ const AllTasks = (function () {
   const removeTask = (index) => tasks.splice(index, 1)
 
   const getTasks = () => [...tasks]
+
+  const formatDate = (date) => {
+    if (!date) return 'No due date'
+    const parsedDate = new Date(date)
+
+    if (!isValid(parsedDate)) {
+      console.error(`Invalid date: ${date}`)
+      return 'Invalid date'
+    }
+
+    return format(parsedDate, 'dd.MM.yyyy')
+  }
 
   const updateTask = (index, updatedTask) => {
     tasks[index] = updatedTask
@@ -59,9 +71,9 @@ const AllTasks = (function () {
 
   const startWithTestTasks = () => {
     const today = new Date()
-    const displayDate = format(today, 'dd-MM-yyyy')
+    // const displayDate = format(today, 'dd-MM-yyyy')
     const storedDate = format(today, 'yyyy-MM-dd')
-    const parsedDate = parseISO(storedDate)
+    // const parsedDate = parseISO(storedDate)
 
     tasks.push(
       new Task({
@@ -96,6 +108,7 @@ const AllTasks = (function () {
     removeTask,
     updateTask,
     getTasks,
+    formatDate,
     updateTaskDueDate,
     updateTaskChecklist,
     getOverdueTasks,
