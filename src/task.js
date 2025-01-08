@@ -1,5 +1,3 @@
-import { format, isValid } from 'date-fns'
-
 class Task {
   constructor({
     title,
@@ -28,16 +26,6 @@ class Task {
     if (!this.dueDate) return false
     const currentDate = new Date()
     return new Date(this.dueDate) < currentDate
-  }
-
-  formatDueDate() {
-    if (!this.dueDate) return 'No due date'
-    const parsedDate = new Date(this.dueDate)
-
-    if (!isValid(parsedDate)) {
-      console.error(`Invalid date: ${this.dueDate}`)
-    }
-    return format(parsedDate, 'dd/MM/yyyy')
   }
 }
 
