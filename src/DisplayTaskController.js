@@ -40,13 +40,15 @@ const DisplayTaskController = (function () {
 
       const taskDueDate = document.createElement('span')
       taskDueDate.classList.add('task-due-date')
-      taskDueDate.textContent = task.dueDate ? task.formatDueDate() : ''
+      taskDueDate.textContent = task.dueDate
+        ? AllTasks.formatDate(task.dueDate)
+        : ''
 
       taskDueDate.addEventListener('click', () => {
         const newDate = prompt('Enter new due date (dd-mm-yyyy):', task.dueDate)
         if (newDate) {
           AllTasks.updateTaskDueDate(index, newDate)
-          task.dueDate.textContent = task.formatDueDate()
+          task.dueDate.textContent = AllTasks.formatDate(task.dueDate)
         }
       })
 
@@ -112,7 +114,7 @@ const DisplayTaskController = (function () {
     dueDateInDetailsContainer.appendChild(dueDateIcon)
     if (task.dueDate) {
       const dueDateInDetails = document.createElement('span')
-      dueDateInDetails.textContent = task.dueDate
+      dueDateInDetails.textContent = AllTasks.formatDate(task.dueDate)
       dueDateInDetailsContainer.appendChild(dueDateInDetails)
     }
 
@@ -206,7 +208,7 @@ const DisplayTaskController = (function () {
       // initializing flatpickr
       flatpickr(dateInput, {
         enableTime: false,
-        dateFormat: 'd-m-Y',
+        dateFormat: 'd.m.Y',
         defaultDate: task.dueDate || new Date(),
         onClose: (selectedDates) => {
           if (selectedDates.length > 0) {
