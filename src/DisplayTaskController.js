@@ -1,5 +1,4 @@
 import AllTasks from './AllTasks'
-import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 
 const DisplayTaskController = (function () {
@@ -45,11 +44,20 @@ const DisplayTaskController = (function () {
         : ''
 
       taskDueDate.addEventListener('click', () => {
-        const newDate = prompt('Enter new due date (dd-mm-yyyy):', task.dueDate)
-        if (newDate) {
-          AllTasks.updateTaskDueDate(index, newDate)
-          task.dueDate.textContent = AllTasks.formatDate(task.dueDate)
-        }
+        const dateInput = document.createElement('input')
+        dateInput.type = 'text'
+        dateInput.classList.add('date-picker-input')
+        taskDueDate.replaceWith(dateInput)
+
+        AllTasks.initDatePicker(dateInput, task.dueDate, (newDate) => {
+          if (typeof onUpdateDate === 'function') {
+            onUpdateDate(index, newDate)
+          }
+          taskDueDate.textContent = AllTasks.formatDate(newDate)
+          dateInput.replaceWith(taskDueDate)
+        })
+
+        dateInput.focus()
       })
 
       taskContent.appendChild(taskTitle)
@@ -206,19 +214,11 @@ const DisplayTaskController = (function () {
       detailsContainer.appendChild(dateInput)
 
       // initializing flatpickr
-      flatpickr(dateInput, {
-        enableTime: false,
-        dateFormat: 'd.m.Y',
-        defaultDate: task.dueDate ? new Date(task.dueDate) : new Date(),
-        onClose: (selectedDates) => {
-          if (selectedDates.length > 0) {
-            const newDate = selectedDates[0]
-            if (typeof onUpdateDate === 'function') {
-              onUpdateDate(index, newDate.toISOString().split('T')[0])
-            }
-            dateInput.remove()
-          }
-        },
+      AllTasks.initDatePicker(dateInput, task.dueDate, (newDate) => {
+        if (typeof onUpdateDate === 'function') {
+          onUpdateDate(index, newDate)
+        }
+        dateInput.remove()
       })
 
       dateInput.focus()
