@@ -209,7 +209,7 @@ const DisplayTaskController = (function () {
       flatpickr(dateInput, {
         enableTime: false,
         dateFormat: 'd.m.Y',
-        defaultDate: task.dueDate || new Date(),
+        defaultDate: task.dueDate ? new Date(task.dueDate) : new Date(),
         onClose: (selectedDates) => {
           if (selectedDates.length > 0) {
             const newDate = selectedDates[0]
