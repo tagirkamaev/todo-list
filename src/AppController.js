@@ -57,7 +57,14 @@ const AppController = (function () {
   }
 
   const handleAddTask = (title, description, dueDate, priority) => {
-    const newTask = new Task(title, description, dueDate, false, priority, '')
+    const newTask = new Task({
+      title: title,
+      description: description,
+      dueDate: dueDate || null,
+      checklist: false,
+      priority: priority || false,
+      notes: '',
+    })
     AllTasks.addTask(newTask)
     saveToLocalStorage()
     updateUI()
@@ -149,7 +156,7 @@ const AppController = (function () {
         return
       }
 
-      if (title && description) {
+      if (title) {
         handleAddTask(title, description, dueDate, priority)
       }
 
