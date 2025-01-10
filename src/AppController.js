@@ -53,8 +53,6 @@ const AppController = (function () {
       onUpdatePriority: handleUpdatePriority,
     })
 
-    // sectionTitleController.updateSectionTitle('Default')
-
     AddTaskController.setupEventListeners(
       (title, description, dueDate, priority) => {
         handleAddTask(title, description, dueDate, priority)
