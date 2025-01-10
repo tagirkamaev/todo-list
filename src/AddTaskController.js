@@ -29,7 +29,7 @@ const AddTaskController = (function () {
         const priority = taskPriority.value
         const dueDate = taskInput.dataset.dueDate || null
 
-        onTaskAdd(title, '', dueDate, priority)
+        onTaskAdd(title, dueDate, priority)
 
         taskInput.value = ''
         taskOptions.classList.add('hidden')

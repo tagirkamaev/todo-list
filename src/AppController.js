@@ -25,7 +25,7 @@ const AppController = (function () {
       tasksData.forEach((task) => {
         const restoredTask = new Task({
           title: task.title,
-          description: task.description,
+          project: task.project,
           dueDate: task.dueDate,
           checklist: task.checklist,
           priority: task.priority,
@@ -53,20 +53,18 @@ const AppController = (function () {
       onUpdatePriority: handleUpdatePriority,
     })
 
-    AddTaskController.setupEventListeners(
-      (title, description, dueDate, priority) => {
-        handleAddTask(title, description, dueDate, priority)
-      },
-    )
+    AddTaskController.setupEventListeners((title, dueDate, priority) => {
+      handleAddTask(title, dueDate, priority)
+    })
     setupEventListeners()
 
     updateUI()
   }
 
-  const handleAddTask = (title, description, dueDate, priority) => {
+  const handleAddTask = (title, dueDate, priority) => {
     const newTask = new Task({
       title: title,
-      description: description,
+      // project: project || null,
       dueDate: dueDate || null,
       checklist: false,
       priority: priority || null,
