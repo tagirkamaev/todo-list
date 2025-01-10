@@ -214,8 +214,11 @@ const AppController = (function () {
       DisplayTaskController.renderTasks(weekTasks)
     })
 
-    const defaultMenu = document.getElementById('default')
-    defaultMenu.addEventListener('click', () => {
+    const inbox = document.getElementById('default')
+    inbox.addEventListener('click', () => {
+      sectionTitleController.updateSectionTitle(
+        document.getElementById('default').innerHTML,
+      )
       updateUI()
     })
   }
