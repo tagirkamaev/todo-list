@@ -93,6 +93,13 @@ const DisplayTaskController = (function () {
   }
 
   const renderTaskDetails = (task, index) => {
+    if (!task) {
+      console.error(`Task at index ${index} does not exist.`)
+      const detailsContainer = document.getElementById('task-details')
+      detailsContainer.innerHTML = '<p>Select a task to view details</p>'
+      return
+    }
+
     const detailsContainer = document.getElementById('task-details')
 
     detailsContainer.innerHTML = ''
