@@ -62,7 +62,7 @@ const AppController = (function () {
       description: description,
       dueDate: dueDate || null,
       checklist: false,
-      priority: priority || false,
+      priority: priority || null,
       notes: '',
     })
     AllTasks.addTask(newTask)
@@ -80,6 +80,15 @@ const AppController = (function () {
   }
 
   const handleDeleteTask = (index) => {
+    const tasks = AllTasks.getTasks()
+
+    // handling active task
+    const taskToDelete = tasks[index]
+    const detailsContainer = document.getElementById('task-details')
+    if (taskToDelete) {
+      detailsContainer.innerHTML = '<p>Select a task to view details</p>'
+    }
+
     AllTasks.removeTask(index)
     saveToLocalStorage()
     updateUI()
