@@ -1,7 +1,9 @@
+import AllProjects from './AllProjects'
+
 class Task {
   constructor({
     title,
-    project = 'Inbox',
+    project = null,
     dueDate = null,
     checklist = false,
     priority = null,
@@ -10,12 +12,22 @@ class Task {
     if (!title) {
       throw new Error('Title is required field.')
     }
+
     if (dueDate && isNaN(new Date(dueDate).getTime())) {
       throw new Error(`Invalid due date: ${dueDate}`)
     }
 
+    if (project) {
+      if (typeof project === 'string') {
+        this.project = AllProjects.getOrCreateProject(project)
+      } else {
+        this.project = project
+      }
+    } else {
+      this.project = AllProjects.getDefaultProject()
+    }
+
     this.title = title
-    this.project = project
     this.dueDate = dueDate
     this.checklist = checklist
     this.priority = priority
