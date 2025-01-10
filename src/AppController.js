@@ -103,6 +103,14 @@ const AppController = (function () {
 
   const handleTaskSelected = (index) => {
     const task = AllTasks.getTasks()[index]
+
+    if (!task) {
+      console.error(`Task at index ${index} does not exist`)
+      const detailsContainer = document.getElementById('task-details')
+      detailsContainer.innerHTML = '<p>Select a task to view details</p>'
+      return
+    }
+
     DisplayTaskController.renderTaskDetails(task, index)
   }
 
