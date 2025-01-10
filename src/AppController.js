@@ -164,32 +164,6 @@ const AppController = (function () {
   }
 
   const setupEventListeners = () => {
-    // const newTaskButton = document.getElementById('add-task')
-    // const addTaskDialog = document.getElementById('add-task-dialog')
-    // const confirmAddButton = document.getElementById('confirm-add')
-
-    // newTaskButton.addEventListener('click', () => {
-    //   addTaskDialog.showModal()
-    // })
-
-    // confirmAddButton.addEventListener('click', () => {
-    //   const title = document.getElementById('task-title').value
-    //   const description = document.getElementById('task-desc').value
-    //   const dueDate = document.getElementById('due-date').value
-    //   const priority = document.getElementById('task-priority').value
-
-    //   if (dueDate && isNaN(new Date(dueDate).getTime())) {
-    //     alert('Due date cannot be in the past')
-    //     return
-    //   }
-
-    //   if (title) {
-    //     handleAddTask(title, description, dueDate, priority)
-    //   }
-
-    //   addTaskDialog.close()
-    // })
-
     const newProjectButton = document.getElementById('add-project')
     const addProjectDialog = document.getElementById('add-project-dialog')
     const confirmAddProjectButton = document.getElementById(
