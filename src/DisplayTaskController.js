@@ -11,15 +11,6 @@ const DisplayTaskController = (function () {
       const taskCard = document.createElement('div')
       taskCard.classList.add('todo')
 
-      // attaching class depending on priority
-      if (task.priority === 'high') {
-        taskCard.classList.add('priority-high')
-      } else if (task.priority === 'medium') {
-        taskCard.classList.add('priority-medium')
-      } else if (task.priority === 'low') {
-        taskCard.classList.add('priority-low')
-      }
-
       // checkbox
       const checkboxContainer = document.createElement('div')
       checkboxContainer.classList.add('checkbox')
@@ -82,6 +73,7 @@ const DisplayTaskController = (function () {
 
       // callback for events
       deleteButton.addEventListener('click', () => {
+        event.stopPropagation()
         if (typeof onDelete === 'function') onDelete(index)
       })
 
