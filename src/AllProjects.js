@@ -31,9 +31,12 @@ const AllProjects = (function () {
     projects.push(new Project('Default'))
   }
 
+  const getDefaultProject = () => defaultProject
+
   return {
     addProject,
     getOrCreateProject,
+    getDefaultProject,
     removeProject,
     getProjects,
     getProjectByName,
