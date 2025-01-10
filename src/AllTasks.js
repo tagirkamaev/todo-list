@@ -72,14 +72,11 @@ const AllTasks = (function () {
 
   const startWithTestTasks = () => {
     const today = new Date()
-    // const displayDate = format(today, 'dd-MM-yyyy')
     const storedDate = format(today, 'yyyy-MM-dd')
-    // const parsedDate = parseISO(storedDate)
 
     tasks.push(
       new Task({
         title: 'Buy groceries',
-        description: 'Milk, bread, eggs',
         checklist: false,
         priority: 'low',
       }),
