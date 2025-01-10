@@ -1,7 +1,7 @@
 class Task {
   constructor({
     title,
-    description,
+    project,
     dueDate = null,
     checklist = false,
     priority = null,
@@ -15,7 +15,7 @@ class Task {
     }
 
     this.title = title
-    this.description = description
+    this.project = project
     this.dueDate = dueDate
     this.checklist = checklist
     this.priority = priority
