@@ -3,6 +3,8 @@ import AllTasks from './AllTasks'
 import DisplayProjectsController from './DisplayProjectsController'
 import DisplayTaskController from './DisplayTaskController'
 import Task from './task'
+import AddTaskController from './AddTaskController'
+import sectionTitleController from './SectionTitle'
 
 const AppController = (function () {
   const saveToLocalStorage = () => {
@@ -51,6 +53,13 @@ const AppController = (function () {
       onUpdatePriority: handleUpdatePriority,
     })
 
+    sectionTitleController.updateSectionTitle('Default')
+
+    AddTaskController.setupEventListeners(
+      (title, description, dueDate, priority) => {
+        handleAddTask(title, description, dueDate, priority)
+      },
+    )
     setupEventListeners()
 
     updateUI()
@@ -155,31 +164,31 @@ const AppController = (function () {
   }
 
   const setupEventListeners = () => {
-    const newTaskButton = document.getElementById('add-task')
-    const addTaskDialog = document.getElementById('add-task-dialog')
-    const confirmAddButton = document.getElementById('confirm-add')
+    // const newTaskButton = document.getElementById('add-task')
+    // const addTaskDialog = document.getElementById('add-task-dialog')
+    // const confirmAddButton = document.getElementById('confirm-add')
 
-    newTaskButton.addEventListener('click', () => {
-      addTaskDialog.showModal()
-    })
+    // newTaskButton.addEventListener('click', () => {
+    //   addTaskDialog.showModal()
+    // })
 
-    confirmAddButton.addEventListener('click', () => {
-      const title = document.getElementById('task-title').value
-      const description = document.getElementById('task-desc').value
-      const dueDate = document.getElementById('due-date').value
-      const priority = document.getElementById('task-priority').value
+    // confirmAddButton.addEventListener('click', () => {
+    //   const title = document.getElementById('task-title').value
+    //   const description = document.getElementById('task-desc').value
+    //   const dueDate = document.getElementById('due-date').value
+    //   const priority = document.getElementById('task-priority').value
 
-      if (dueDate && isNaN(new Date(dueDate).getTime())) {
-        alert('Due date cannot be in the past')
-        return
-      }
+    //   if (dueDate && isNaN(new Date(dueDate).getTime())) {
+    //     alert('Due date cannot be in the past')
+    //     return
+    //   }
 
-      if (title) {
-        handleAddTask(title, description, dueDate, priority)
-      }
+    //   if (title) {
+    //     handleAddTask(title, description, dueDate, priority)
+    //   }
 
-      addTaskDialog.close()
-    })
+    //   addTaskDialog.close()
+    // })
 
     const newProjectButton = document.getElementById('add-project')
     const addProjectDialog = document.getElementById('add-project-dialog')
