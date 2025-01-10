@@ -1,40 +1,4 @@
 /* ========== Task List ========== */
-#task-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #24272b;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-  }
-
-  header h1 {
-    font-size: 2rem;
-    color: #c0cfde;
-  }
-
-  #add-task {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-
-  #add-task:hover {
-    background-color: #1a242f;
-  }
-
   /* Task List */
   #tasks {
     display: flex;
@@ -46,12 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* background-color: #fff; */
-    /* border: 1px solid #ddd; */
-    /* padding: 15px; */
     margin-bottom: 10px;
-    /* border-radius: 8px; */
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     transition: background 0.3s;
   }
 
@@ -104,15 +63,3 @@
   .delete-task:hover {
     background-color: #d32f2f;
   }
-
-  /* .priority-high {
-    background-color: #ffcccc; 
-  }
-  
-  .priority-medium {
-    background-color: #fff5cc; 
-  }
-  
-  .priority-low {
-    background-color: #ccffcc; 
-  } */

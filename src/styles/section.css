@@ -1,0 +1,77 @@
+#central-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #24272b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+
+  header h2 {
+    font-size: 1.5rem;
+    color: #c0cfde;
+  }
+
+  #section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  #current-section-title {
+    margin: 0;
+  }
+  
+  #task-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    position: relative;
+  }
+  
+  #task-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+  
+  #task-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  #task-options.hidden {
+    display: none;
+  }
+  
+  #task-date-icon {
+    cursor: pointer;
+    color: #777;
+  }
+  
+  #task-priority {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  #task-input:focus {
+    border-color: #007bff;
+    background-color: #fff;
+  }
