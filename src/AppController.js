@@ -61,15 +61,21 @@ const AppController = (function () {
     updateUI()
   }
 
-  const handleAddTask = (title, dueDate, priority) => {
+  const handleAddTask = (title, dueDate, priority, projectName = null) => {
+    let project = null
+
+    if (projectName) {
+      project = AllProjects.getOrCreateProject(projectName)
+    }
     const newTask = new Task({
       title: title,
-      // project: project || null,
+      project: project,
       dueDate: dueDate || null,
       checklist: false,
       priority: priority || null,
       notes: '',
     })
+
     AllTasks.addTask(newTask)
     saveToLocalStorage()
     updateUI()
