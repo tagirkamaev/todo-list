@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -20,17 +20,34 @@
         </ul>
         <button id="add-project">+ Add Project</button>
       </aside>
+      <main id="central-block">
+        <header id="section-header">
+          <h2 id="current-view-title">Default</h2>
 
-      <main id="task-container">
-        <header>
-          <h1 id="current-view-title">Default</h1>
-          <button id="add-task">+ Add Task</button>
+          <div id="task-input-container">
+            <input
+              type="text"
+              id="task-input"
+              placeholder="+ Add a new task..."
+            />
+            <div id="task-options" class="hidden">
+              <i id="task-date-icon" class="fa-solid fa-calendar"></i>
+              <select id="task-priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
         </header>
-        <section id="tasks">
-          <!-- Dynamic task content will be rendered here -->
-          <!-- <p class="no-tasks">No tasks available. Add a task to get started!</p> -->
+        <section id="task-container">
+          <section id="tasks">
+            <!-- Dynamic task content will be rendered here -->
+            <!-- <p class="no-tasks">No tasks available. Add a task to get started!</p> -->
+          </section>
         </section>
       </main>
+
       <aside id="task-details">
         <div id="details-content">
           <p>Select a task to view details</p>
