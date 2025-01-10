@@ -102,7 +102,8 @@ const AppController = (function () {
   }
 
   const handleTaskSelected = (index) => {
-    const task = AllTasks.getTasks()[index]
+    const tasks = AllTasks.getTasks()
+    const task = tasks[index]
 
     if (!task) {
       console.error(`Task at index ${index} does not exist`)
