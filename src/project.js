@@ -4,12 +4,18 @@ class Project {
     this.tasks = []
   }
 
-  addTask() {
-    this.tasks.push(task)
+  addTask(task) {
+    if (!this.tasks.includes(task)) {
+      this.tasks.push(task)
+      task.project = this
+    }
   }
 
-  removeTask(index) {
-    this.tasks.splice(index, 1)
+  removeTask(task) {
+    this.tasks = this.tasks.filter((t) => t !== task)
+    if (task.project === this) {
+      task.project = null
+    }
   }
 
   getTasks() {
