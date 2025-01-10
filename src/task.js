@@ -1,7 +1,7 @@
 class Task {
   constructor({
     title,
-    project,
+    project = 'Inbox',
     dueDate = null,
     checklist = false,
     priority = null,
