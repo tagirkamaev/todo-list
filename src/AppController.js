@@ -53,7 +53,7 @@ const AppController = (function () {
       onUpdatePriority: handleUpdatePriority,
     })
 
-    sectionTitleController.updateSectionTitle('Default')
+    // sectionTitleController.updateSectionTitle('Default')
 
     AddTaskController.setupEventListeners(
       (title, description, dueDate, priority) => {
@@ -185,26 +185,32 @@ const AppController = (function () {
     })
 
     // filter buttons in menu
-    document
-      .querySelector('[data-filter="overdue"]')
-      .addEventListener('click', () => {
-        const overdueTasks = AllTasks.getOverdueTasks()
-        DisplayTaskController.renderTasks(overdueTasks)
-      })
+    const overdueSectionName = document.querySelector('[data-filter="overdue"]')
+    overdueSectionName.addEventListener('click', () => {
+      const overdueTasks = AllTasks.getOverdueTasks()
+      sectionTitleController.updateSectionTitle(
+        document.getElementById('overdue').innerHTML,
+      )
+      DisplayTaskController.renderTasks(overdueTasks)
+    })
 
-    document
-      .querySelector('[data-filter="today"]')
-      .addEventListener('click', () => {
-        const todayTasks = AllTasks.getTodayTasks()
-        DisplayTaskController.renderTasks(todayTasks)
-      })
+    const todaySectionName = document.querySelector('[data-filter="today"]')
+    todaySectionName.addEventListener('click', () => {
+      const todayTasks = AllTasks.getTodayTasks()
+      sectionTitleController.updateSectionTitle(
+        document.getElementById('today').innerHTML,
+      )
+      DisplayTaskController.renderTasks(todayTasks)
+    })
 
-    document
-      .querySelector('[data-filter="week"]')
-      .addEventListener('click', () => {
-        const weekTasks = AllTasks.getThisWeekTasks()
-        DisplayTaskController.renderTasks(weekTasks)
-      })
+    const weekSectionTitle = document.querySelector('[data-filter="week"]')
+    weekSectionTitle.addEventListener('click', () => {
+      const weekTasks = AllTasks.getThisWeekTasks()
+      sectionTitleController.updateSectionTitle(
+        document.getElementById('week').innerHTML,
+      )
+      DisplayTaskController.renderTasks(weekTasks)
+    })
 
     const defaultMenu = document.getElementById('default')
     defaultMenu.addEventListener('click', () => {
