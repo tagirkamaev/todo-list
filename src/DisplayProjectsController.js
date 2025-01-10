@@ -4,7 +4,7 @@ const DisplayProjectsController = (function () {
     projectsContainer.innerHTML = ''
 
     //display projects
-    projects.forEach((project, index) => {
+    projects.forEach((project) => {
       const projectCard = document.createElement('li')
       projectCard.textContent = project.name
       projectCard.classList.add('project')
