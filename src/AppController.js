@@ -3,6 +3,7 @@ import AllTasks from './AllTasks'
 import DisplayProjectsController from './DisplayProjectsController'
 import DisplayTaskController from './DisplayTaskController'
 import Task from './task'
+import Project from './project'
 import AddTaskController from './AddTaskController'
 import sectionTitleController from './SectionTitle'
 
@@ -18,14 +19,25 @@ const AppController = (function () {
     const tasksData = JSON.parse(localStorage.getItem('tasks')) || []
     const projectsData = JSON.parse(localStorage.getItem('projects')) || []
 
+    if (projectsData.length === 0) {
+      AllProjects.startWithTestProjects()
+      saveToLocalStorage()
+    } else {
+      projectsData.forEach((project) => {
+        const restoredProject = new Project(project.name)
+        AllProjects.addProject(restoredProject)
+      })
+    }
+
     if (tasksData.length === 0) {
       AllTasks.startWithTestTasks()
       saveToLocalStorage()
     } else {
       tasksData.forEach((task) => {
+        const project = AllProjects.getProjectByName(task.project.name)
         const restoredTask = new Task({
           title: task.title,
-          project: task.project,
+          project: project,
           dueDate: task.dueDate,
           checklist: task.checklist,
           priority: task.priority,
@@ -34,9 +46,6 @@ const AppController = (function () {
         AllTasks.addTask(restoredTask)
       })
     }
-    projectsData.forEach((project) => {
-      AllProjects.addProject(project)
-    })
   }
 
   const initialize = () => {
@@ -53,12 +62,18 @@ const AppController = (function () {
       onUpdatePriority: handleUpdatePriority,
     })
 
+    DisplayProjectsController.setCallbacksProjects({
+      onProjectSelected: handleProjectSelected,
+    })
+
     AddTaskController.setupEventListeners((title, dueDate, priority) => {
       handleAddTask(title, dueDate, priority)
     })
     setupEventListeners()
 
     updateUI()
+
+    updateUISidebar()
   }
 
   const handleAddTask = (title, dueDate, priority, projectName = null) => {
@@ -66,7 +81,10 @@ const AppController = (function () {
 
     if (projectName) {
       project = AllProjects.getOrCreateProject(projectName)
+    } else {
+      project = AllProjects.getDefaultProject()
     }
+
     const newTask = new Task({
       title: title,
       project: project,
@@ -221,6 +239,11 @@ const AppController = (function () {
       )
       updateUI()
     })
+  }
+
+  const handleProjectSelected = (project) => {
+    sectionTitleController.updateSectionTitle(project.name)
+    DisplayTaskController.renderTasksForProject(project)
   }
 
   return { initialize }
