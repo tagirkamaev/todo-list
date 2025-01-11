@@ -1,4 +1,5 @@
 import Project from './project'
+import AllTasks from './AllTasks'
 
 const AllProjects = (function () {
   const projects = []
@@ -31,6 +32,16 @@ const AllProjects = (function () {
     projects.push(new Project('Default'))
   }
 
+  const startWithTestProjects = () => {
+    projects.push(new Project('Testik'))
+  }
+
+  const getTasksForProject = (projectName) => {
+    return AllTasks.getTasks().filter(
+      (task) => task.projectName === projectName,
+    )
+  }
+
   const getDefaultProject = () => defaultProject
 
   return {
@@ -41,6 +52,8 @@ const AllProjects = (function () {
     getProjects,
     getProjectByName,
     startWithDefaultProject,
+    startWithTestProjects,
+    getTasksForProject,
   }
 })()
 
