@@ -6,14 +6,26 @@ const DisplayProjectsController = (function () {
     //display projects
     projects.forEach((project) => {
       const projectCard = document.createElement('li')
-      projectCard.textContent = project.name
+      projectCard.textContent = `${project.name} (${project.tasks.length})`
       projectCard.classList.add('project')
+
+      projectCard.addEventListener('click', () => {
+        if (typeof onProjectSelected === 'function') {
+          onProjectSelected(project)
+        }
+      })
 
       projectsContainer.appendChild(projectCard)
     })
   }
 
-  return { renderProjects }
+  let onProjectSelected = null
+
+  const setCallbacksProjects = (callbacks) => {
+    onProjectSelected = callbacks.onProjectSelected
+  }
+
+  return { renderProjects, setCallbacksProjects }
 })()
 
 export default DisplayProjectsController
