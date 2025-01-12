@@ -1,7 +1,9 @@
+import AllProjects from './AllProjects'
+
 class Task {
   constructor({
     title,
-    projectName = null,
+    project = null,
     dueDate = null,
     checklist = false,
     priority = null,
@@ -15,8 +17,14 @@ class Task {
       throw new Error(`Invalid due date: ${dueDate}`)
     }
 
+    if (project) {
+      this.project = project
+    } else {
+      this.project = AllProjects.getDefaultProject()
+    }
+
     this.title = title
-    this.projectName = projectName
+    // this.projectName = projectName
     this.dueDate = dueDate
     this.checklist = checklist
     this.priority = priority
