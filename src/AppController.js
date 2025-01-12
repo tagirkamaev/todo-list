@@ -34,7 +34,7 @@ const AppController = (function () {
       saveToLocalStorage()
     } else {
       tasksData.forEach((task) => {
-        const project = AllProjects.getProjectByName(task.project.name)
+        const project = AllProjects.getProjectByName(task.project)
         const restoredTask = new Task({
           title: task.title,
           project: project,
