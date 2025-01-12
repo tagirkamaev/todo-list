@@ -7,6 +7,7 @@ const AllProjects = (function () {
   const defaultProject = new Project('Inbox')
   projects.push(defaultProject)
 
+  // BASIC OPERATIONS
   const addProject = (project) => {
     if (!projects.includes(project)) {
       projects.push(project)
@@ -28,9 +29,9 @@ const AllProjects = (function () {
     return project
   }
 
-  const startWithDefaultProject = () => {
-    projects.push(new Project('Default'))
-  }
+  // const startWithDefaultProject = () => {
+  //   projects.push(new Project('Default'))
+  // }
 
   const startWithTestProjects = () => {
     projects.push(new Project('Testik'))
@@ -51,7 +52,7 @@ const AllProjects = (function () {
     removeProject,
     getProjects,
     getProjectByName,
-    startWithDefaultProject,
+    // startWithDefaultProject,
     startWithTestProjects,
     getTasksForProject,
   }
