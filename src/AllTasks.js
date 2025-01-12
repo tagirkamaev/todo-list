@@ -117,6 +117,10 @@ const AllTasks = (function () {
     })
   }
 
+  const getTasksForProject = (project) => {
+    return AllTasks.getTasks().filter((task) => task.project === project)
+  }
+
   return {
     addTask,
     removeTask,
@@ -130,6 +134,7 @@ const AllTasks = (function () {
     getThisWeekTasks,
     startWithTestTasks,
     initDatePicker,
+    getTasksForProject,
   }
 })()
 
