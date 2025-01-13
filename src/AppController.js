@@ -49,6 +49,8 @@ const AppController = (function () {
   }
 
   const initialize = () => {
+    initializeDefaultProject()
+
     loadFromLocalStorage()
 
     // callbacks for display and logic interaction
@@ -64,6 +66,7 @@ const AppController = (function () {
 
     DisplayProjectsController.setCallbacksProjects({
       onProjectSelected: handleProjectSelected,
+      onProjectDelete: handleDeleteProject,
     })
 
     AddTaskController.setupEventListeners((title, dueDate, priority) => {
@@ -91,7 +94,7 @@ const AppController = (function () {
 
     const newTask = new Task({
       title: title,
-      project: project.name,
+      project: project,
       dueDate: dueDate || null,
       checklist: false,
       priority: priority || null,
@@ -248,6 +251,16 @@ const AppController = (function () {
   const handleProjectSelected = (project) => {
     sectionTitleController.updateSectionTitle(project.name)
     DisplayTaskController.renderTasksForProject(project)
+  }
+
+  const handleDeleteProject = (index) => {
+    AllProjects.removeProject(index)
+    saveToLocalStorage()
+    updateUISidebar()
+  }
+
+  const initializeDefaultProject = () => {
+    AllProjects.getOrCreateProject('Inbox')
   }
 
   return { initialize }
