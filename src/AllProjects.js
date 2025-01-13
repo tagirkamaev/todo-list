@@ -2,10 +2,10 @@ import Project from './project'
 import AllTasks from './AllTasks'
 
 const AllProjects = (function () {
-  const projects = []
+  const projects = [new Project('Inbox')]
 
-  const defaultProject = new Project('Inbox')
-  projects.push(defaultProject)
+  // const defaultProject = new Project('Inbox')
+  // projects.push(defaultProject)
 
   // BASIC OPERATIONS
   const addProject = (project) => {
@@ -17,6 +17,7 @@ const AllProjects = (function () {
 
   const getProjects = () => [...projects]
 
+  // METHODS FOR EXPORT
   const getProjectByName = (name) =>
     projects.find((project) => project.name === name)
 
@@ -29,10 +30,9 @@ const AllProjects = (function () {
     return project
   }
 
-  // const startWithDefaultProject = () => {
-  //   projects.push(new Project('Default'))
-  // }
+  const getDefaultProject = () => getOrCreateProject('Inbox')
 
+  // OTHERS
   const startWithTestProjects = () => {
     projects.push(new Project('Testik'))
   }
@@ -41,15 +41,6 @@ const AllProjects = (function () {
     return AllTasks.getTasks().filter(
       (task) => task.projectName === projectName,
     )
-  }
-
-  const getDefaultProject = () => {
-    let project = projects.find((p) => p.name === 'Inbox')
-    if (!project) {
-      project = new Project('Inbox')
-      projects.push(project)
-    }
-    return project
   }
 
   return {
