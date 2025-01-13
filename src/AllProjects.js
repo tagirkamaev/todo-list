@@ -43,7 +43,14 @@ const AllProjects = (function () {
     )
   }
 
-  const getDefaultProject = () => defaultProject
+  const getDefaultProject = () => {
+    let project = projects.find((p) => p.name === 'Inbox')
+    if (!project) {
+      project = new Project('Inbox')
+      projects.push(project)
+    }
+    return project
+  }
 
   return {
     addProject,
