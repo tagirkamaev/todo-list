@@ -77,17 +77,21 @@ const AppController = (function () {
   }
 
   const handleAddTask = (title, dueDate, priority, projectName = null) => {
-    let project = null
+    // let project = null
 
-    if (projectName) {
-      project = AllProjects.getOrCreateProject(projectName)
-    } else {
-      project = AllProjects.getDefaultProject()
-    }
+    // if (projectName) {
+    //   project = AllProjects.getOrCreateProject(projectName)
+    // } else {
+    //   project = AllProjects.getDefaultProject()
+    // }
+
+    const project = projectName
+      ? AllProjects.getOrCreateProject(projectName)
+      : AllProjects.getDefaultProject()
 
     const newTask = new Task({
       title: title,
-      project: project,
+      project: project.name,
       dueDate: dueDate || null,
       checklist: false,
       priority: priority || null,
