@@ -1,5 +1,5 @@
 class Project {
-  constructor(name, isSystem = false) {
+  constructor(name, isSystem = null) {
     this.name = name
     this.isSystem = isSystem
     this.tasks = []
