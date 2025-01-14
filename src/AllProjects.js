@@ -2,10 +2,7 @@ import Project from './project'
 import AllTasks from './AllTasks'
 
 const AllProjects = (function () {
-  const projects = [new Project('Inbox')]
-
-  // const defaultProject = new Project('Inbox')
-  // projects.push(defaultProject)
+  const projects = []
 
   // BASIC OPERATIONS
   const addProject = (project) => {
@@ -21,16 +18,16 @@ const AllProjects = (function () {
   const getProjectByName = (name) =>
     projects.find((project) => project.name === name)
 
-  const getOrCreateProject = (name) => {
+  const getOrCreateProject = (name, isSystem) => {
     let project = getProjectByName(name)
     if (!project) {
-      project = new Project(name)
+      project = new Project(name, isSystem)
       addProject(project)
     }
     return project
   }
 
-  const getDefaultProject = () => getOrCreateProject('Inbox')
+  const getDefaultProject = () => getOrCreateProject('Inbox', true)
 
   // OTHERS
   const startWithTestProjects = () => {
