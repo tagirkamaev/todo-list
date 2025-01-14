@@ -9,7 +9,7 @@ const DisplayProjectsController = (function () {
       projectCardContainer.classList.add('project-card-container')
 
       const projectCard = document.createElement('div')
-      projectCard.textContent = `${project.name} (${project.tasks.length})`
+      projectCard.textContent = `${project.name}`
       projectCard.classList.add('project')
 
       const deleteButton = document.createElement('button')
