@@ -50,8 +50,6 @@ const AppController = (function () {
   }
 
   const initialize = () => {
-    initializeDefaultProject()
-
     loadFromLocalStorage()
 
     DisplayFiltersController.renderFilters()
@@ -75,11 +73,15 @@ const AppController = (function () {
     AddTaskController.setupEventListeners((title, dueDate, priority) => {
       handleAddTask(title, dueDate, priority)
     })
+
     setupEventListeners()
 
     updateUI()
 
     updateUISidebar()
+
+    console.log(AllProjects.getProjects())
+    console.log(AllTasks.getTasks())
   }
 
   const handleAddTask = (title, dueDate, priority, projectName = null) => {
@@ -217,17 +219,15 @@ const AppController = (function () {
 
   const handleProjectSelected = (project) => {
     sectionTitleController.updateSectionTitle(project.name)
-    DisplayTaskController.renderTasksForProject(project)
+
+    const projectTasks = AllTasks.getTasksForProject(project)
+    DisplayTaskController.renderTasks(projectTasks)
   }
 
   const handleDeleteProject = (index) => {
     AllProjects.removeProject(index)
     saveToLocalStorage()
     updateUISidebar()
-  }
-
-  const initializeDefaultProject = () => {
-    AllProjects.getOrCreateProject('Inbox')
   }
 
   return { initialize }
