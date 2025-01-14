@@ -6,6 +6,7 @@ import Task from './task'
 import Project from './project'
 import AddTaskController from './AddTaskController'
 import sectionTitleController from './SectionTitle'
+import DisplayFiltersController from './DisplayFiltersController'
 
 const AppController = (function () {
   const saveToLocalStorage = () => {
@@ -52,6 +53,8 @@ const AppController = (function () {
     initializeDefaultProject()
 
     loadFromLocalStorage()
+
+    DisplayFiltersController.renderFilters()
 
     // callbacks for display and logic interaction
     DisplayTaskController.setCallbacks({
@@ -209,42 +212,6 @@ const AppController = (function () {
       }
 
       addProjectDialog.close()
-    })
-
-    // filter buttons in menu
-    const overdueSectionName = document.querySelector('[data-filter="overdue"]')
-    overdueSectionName.addEventListener('click', () => {
-      const overdueTasks = AllTasks.getOverdueTasks()
-      sectionTitleController.updateSectionTitle(
-        document.getElementById('overdue').innerHTML,
-      )
-      DisplayTaskController.renderTasks(overdueTasks)
-    })
-
-    const todaySectionName = document.querySelector('[data-filter="today"]')
-    todaySectionName.addEventListener('click', () => {
-      const todayTasks = AllTasks.getTodayTasks()
-      sectionTitleController.updateSectionTitle(
-        document.getElementById('today').innerHTML,
-      )
-      DisplayTaskController.renderTasks(todayTasks)
-    })
-
-    const weekSectionTitle = document.querySelector('[data-filter="week"]')
-    weekSectionTitle.addEventListener('click', () => {
-      const weekTasks = AllTasks.getThisWeekTasks()
-      sectionTitleController.updateSectionTitle(
-        document.getElementById('week').innerHTML,
-      )
-      DisplayTaskController.renderTasks(weekTasks)
-    })
-
-    const inbox = document.getElementById('default')
-    inbox.addEventListener('click', () => {
-      sectionTitleController.updateSectionTitle(
-        document.getElementById('default').innerHTML,
-      )
-      updateUI()
     })
   }
 
