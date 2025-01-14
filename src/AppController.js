@@ -79,9 +79,6 @@ const AppController = (function () {
     updateUI()
 
     updateUISidebar()
-
-    console.log(AllProjects.getProjects())
-    console.log(AllTasks.getTasks())
   }
 
   const handleAddTask = (title, dueDate, priority, projectName = null) => {
