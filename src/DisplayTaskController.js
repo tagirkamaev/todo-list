@@ -232,11 +232,6 @@ const DisplayTaskController = (function () {
     })
   }
 
-  const renderTasksForProject = function (project) {
-    const tasks = project.getTasks()
-    renderTasks(tasks)
-  }
-
   let onDelete = null
   let onToggle = null
   let onTaskSelected = null
@@ -255,7 +250,7 @@ const DisplayTaskController = (function () {
     onUpdateDate = callbacks.onUpdateDate
   }
 
-  return { renderTasks, renderTaskDetails, renderTasksForProject, setCallbacks }
+  return { renderTasks, renderTaskDetails, setCallbacks }
 })()
 
 export default DisplayTaskController
