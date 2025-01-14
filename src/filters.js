@@ -6,7 +6,7 @@ const filters = [
     name: 'Inbox',
     type: 'system',
     id: 'inbox',
-    handler: () => AllProjects.getDefaultProject().getTasks(),
+    handler: () => AllTasks.getTasksForProject(AllProjects.getDefaultProject()),
   },
   {
     name: 'Overdue',
