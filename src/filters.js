@@ -1,25 +1,30 @@
+import AllProjects from './AllProjects'
 import AllTasks from './AllTasks'
-// import AllProjects from './AllProjects'
 
 const filters = [
-  { name: 'Inbox', type: 'system', id: 'inbox' },
+  {
+    name: 'Inbox',
+    type: 'system',
+    id: 'inbox',
+    handler: () => AllProjects.getDefaultProject().getTasks(),
+  },
   {
     name: 'Overdue',
     type: 'dynamic',
     id: 'overdue',
-    handler: AllTasks.getOverdueTasks,
+    handler: () => AllTasks.getOverdueTasks(),
   },
   {
     name: 'Today',
     type: 'dynamic',
     id: 'today',
-    handler: AllTasks.getTodayTasks,
+    handler: () => AllTasks.getTodayTasks(),
   },
   {
     name: 'This week',
     type: 'dynamic',
     id: 'week',
-    handler: AllTasks.getThisWeekTasks,
+    handler: () => AllTasks.getThisWeekTasks(),
   },
 ]
 
