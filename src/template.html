@@ -30,12 +30,30 @@
               placeholder="+ Add a new task..."
             />
             <div id="task-options" class="hidden">
-              <i id="task-date-icon" class="fa-solid fa-calendar"></i>
-              <select id="task-priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
+              <!-- icon for date -->
+              <button id="task-date-icon" class="task-icon">
+                <i class="fa-solid fa-calendar"></i>
+              </button>
+
+              <!-- icon for more options -->
+              <button id="task-more-options-button" class="task-icon">
+                <i class="fa-solid fa-bars"></i>
+              </button>
+
+              <!-- container for options -->
+              <div id="options-container" class="hidden">
+                <label for="task-priority">Priority:</label>
+                <select id="task-priority">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+
+                <label for="task-project">Project:</label>
+                <select id="task-project">
+                  <!-- dynamicly added projects -->
+                </select>
+              </div>
             </div>
           </div>
         </header>
