@@ -1,66 +1,67 @@
 /* ========== Task Details ========== */
 #task-details {
     width: 300px;
-    background-color: #2c3e50;
+    background-color: #26282a;
     color: white;
     padding: 20px;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* gap: 10px; */
-    /* border-radius: 8px; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
-#details-icons {
+  .task-details-header {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
+    margin-bottom: 16px;
+  }
 
-.icon {
+  .task-details-header input[type="checkbox"] {
+    margin-right: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .task-details-header .date {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #3a4d61;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
+    font-size: 14px;
+    color: #555;
+  }
 
-.icon:hover {
-    background-color: #4f6378;
-}
-
-.priority-icon::before {
-    content: "P";
+  .task-details-header .priority {
+    font-size: 14px;
+    color: #777;
+    text-align: right;
+  }
+  
+  .task-separator {
+    height: 1px;
+    background-color: #ddd;
+    margin: 16px 0;
+  }
+  
+  .details-title {
+    font-size: 18px;
     font-weight: bold;
-}
+    color: #f1f1f1;
+    margin-bottom: 8px;
+  }
+  
+  .task-notes {
+    font-size: 14px;
+    color: #e5e5e5;
+    margin-bottom: 16px;
+  }
+  
+  .task-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
 
-.checkbox-icon::before {
-    content: "✔"
-}
 
-.date-icon::before {
-    content: "📅";
-}
-
-#details-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding: 5px;
-    border: none;
-    outline: none;
-    color: white;
-    background-color: transparent;
-}
-
-#details-notes::placeholder {
+.details-notes::placeholder {
     color: #ccc;
 }
 
