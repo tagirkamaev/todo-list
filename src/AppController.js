@@ -70,9 +70,11 @@ const AppController = (function () {
       onProjectDelete: handleDeleteProject,
     })
 
-    AddTaskController.setupEventListeners((title, dueDate, priority) => {
-      handleAddTask(title, dueDate, priority)
-    })
+    AddTaskController.setupEventListeners(
+      (title, dueDate, priority, project) => {
+        handleAddTask(title, dueDate, priority, project)
+      },
+    )
 
     setupEventListeners()
 
@@ -82,14 +84,6 @@ const AppController = (function () {
   }
 
   const handleAddTask = (title, dueDate, priority, projectName = null) => {
-    // let project = null
-
-    // if (projectName) {
-    //   project = AllProjects.getOrCreateProject(projectName)
-    // } else {
-    //   project = AllProjects.getDefaultProject()
-    // }
-
     const project = projectName
       ? AllProjects.getOrCreateProject(projectName)
       : AllProjects.getDefaultProject()
