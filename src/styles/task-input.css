@@ -1,0 +1,77 @@
+#task-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
+    background-color: #ffffff;
+    position: relative;
+  }
+  
+  #task-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background: transparent;
+  }
+  
+  #task-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+  
+  #task-options.hidden {
+    display: none;
+  }
+  
+  #task-date-icon {
+    cursor: pointer;
+    color: #777;
+  }
+  
+  #task-priority {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  #task-input:focus {
+    border-color: #007bff;
+    background-color: #fff;
+  }
+
+  #options-container {
+    position: absolute;
+    top: 100%; /* Располагаем окно под кнопкой */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    z-index: 10;
+    display: none; /* Скрываем по умолчанию */
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  #options-container.hidden {
+    display: none;
+  }
+
+  .task-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .task-icon i {
+    font-size: 20px;
+    color: #555;
+  }
