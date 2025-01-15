@@ -92,9 +92,32 @@ const DisplayTaskController = (function () {
       return
     }
 
-    const detailsContainer = document.getElementById('task-details')
-
+    const detailsContainer = document.getElementById('details-content')
     detailsContainer.innerHTML = ''
+
+    const header = document.createElement('div')
+    header.className = 'task-details-header'
+
+    // checkbox
+    const checkboxInDetails = document.createElement('input')
+    checkboxInDetails.type = 'checkbox'
+    checkboxInDetails.classList.add('checkbox-details')
+    checkboxInDetails.checked = task.checklist
+    header.appendChild(checkboxInDetails)
+
+    // due date
+    const dueDateInDetailsContainer = document.createElement('div')
+    const dueDateIcon = document.createElement('i')
+    dueDateIcon.classList.add('date-details')
+    dueDateIcon.classList.add('fa-solid', 'fa-calendar')
+    dueDateInDetailsContainer.appendChild(dueDateIcon)
+    if (task.dueDate) {
+      const dueDateInDetails = document.createElement('span')
+      dueDateInDetails.classList.add('date-text')
+      dueDateInDetails.textContent = AllTasks.formatDate(task.dueDate)
+      dueDateInDetailsContainer.appendChild(dueDateInDetails)
+    }
+    header.appendChild(dueDateInDetailsContainer)
 
     // priority
     const priorityFlag = document.createElement('i')
@@ -106,42 +129,43 @@ const DisplayTaskController = (function () {
         : task.priority === 'medium'
           ? '#f1c40f'
           : '#2ecc71'
+    header.appendChild(priorityFlag)
 
-    // checklist
-    const checkboxInDetails = document.createElement('input')
-    checkboxInDetails.type = 'checkbox'
-    checkboxInDetails.classList.add('checkbox-details')
-    checkboxInDetails.checked = task.checklist
+    detailsContainer.appendChild(header)
 
-    // due date
-    const dueDateInDetailsContainer = document.createElement('div')
-    const dueDateIcon = document.createElement('i')
-    dueDateIcon.classList.add('date-details')
-    dueDateIcon.classList.add('fa-solid', 'fa-calendar')
-    dueDateInDetailsContainer.appendChild(dueDateIcon)
-    if (task.dueDate) {
-      const dueDateInDetails = document.createElement('span')
-      dueDateInDetails.textContent = AllTasks.formatDate(task.dueDate)
-      dueDateInDetailsContainer.appendChild(dueDateInDetails)
-    }
+    // separator
+    const separator = document.createElement('div')
+    separator.className = 'task-separator'
+    detailsContainer.appendChild(separator)
 
     // task title
     const detailsTaskTitle = document.createElement('h4')
     detailsTaskTitle.classList.add('details-title')
     detailsTaskTitle.setAttribute('contenteditable', 'true')
     detailsTaskTitle.textContent = task.title
+    detailsContainer.appendChild(detailsTaskTitle)
 
     // task notes
     const detailsTaskNotes = document.createElement('p')
     detailsTaskNotes.classList.add('details-notes')
     detailsTaskNotes.setAttribute('contenteditable', 'true')
-    detailsTaskNotes.textContent = task.notes
-
-    detailsContainer.appendChild(dueDateInDetailsContainer)
-    detailsContainer.appendChild(checkboxInDetails)
-    detailsContainer.appendChild(priorityFlag)
-    detailsContainer.appendChild(detailsTaskTitle)
+    if (task.notes === '') {
+      detailsTaskNotes.placeholder = 'Add notes here...'
+    } else {
+      detailsTaskNotes.textContent = task.notes
+    }
     detailsContainer.appendChild(detailsTaskNotes)
+
+    // footer
+    const footer = document.createElement('div')
+    footer.className = 'task-details-footer'
+
+    // project selector
+    const projectSelector = document.createElement('select')
+    projectSelector.className = 'project-selector'
+    footer.appendChild(projectSelector)
+
+    detailsContainer.appendChild(footer)
 
     // update title
     detailsTaskTitle.addEventListener('input', () => {
@@ -210,7 +234,7 @@ const DisplayTaskController = (function () {
       const dateInput = document.createElement('input')
       dateInput.type = 'text'
       dateInput.classList.add('datepicker')
-      detailsContainer.appendChild(dateInput)
+      header.appendChild(dateInput)
 
       // initializing flatpickr
       AllTasks.initDatePicker(dateInput, task.dueDate, (newDate) => {
